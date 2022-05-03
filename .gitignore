@@ -2,7 +2,6 @@
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
 
 DevOps/jenkins_home/
-DevOps/Terraform/vars.tf
 .DS_Store
 
 ### Eclipse ###
@@ -289,6 +288,7 @@ dist
 .pnp.*
 
 
+
 # https://github.com/github/gitignore/blob/main/Terraform.gitignore
 
 # Local .terraform directories
@@ -326,3 +326,4 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+DevOps/Terraform/vars.tf
