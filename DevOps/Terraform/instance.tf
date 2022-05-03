@@ -8,5 +8,5 @@ resource "aws_instance" "project-instance" {
 
   key_name = aws_key_pair.keypair.key_name
 
-  iam_instance_profile = aws_iam_instance_profile..name
+  iam_instance_profile = aws_iam_instance_profile.project-ec2-profile.name
 }
