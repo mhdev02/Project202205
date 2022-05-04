@@ -21,6 +21,7 @@
     FIX: 버그 수정
     CREATE: 새로운 기능 추가 등의 코드 작성
     UPDATE: 기존 코드 수정
+    DELETE: 코드 파일 삭제
 
     Commit을 할 때 issue 번호(#1 등)를 포함하여 트래킹이 가능하도록 함
 
