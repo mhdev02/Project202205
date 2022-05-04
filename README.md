@@ -41,3 +41,5 @@
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
     Jenkins, Github 연동, github webhook
+    Jenkins를 로컬 컴퓨터의 docker container로 실행하고 공유기에서 포트포워딩이나 ngrok을 사용해서 commit을 push할 때 github webhook이 작동한 것은 확인했으나, 
+    같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음(2022.05.05 01:50)
