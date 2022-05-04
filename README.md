@@ -40,4 +40,4 @@
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
-    Jenkins, Github 연동
+    Jenkins, Github 연동, github webhook
