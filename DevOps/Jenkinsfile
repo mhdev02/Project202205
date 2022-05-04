@@ -1,0 +1,36 @@
+pipeline {
+
+    agent any
+    
+    // environment {
+    //     PASS = credentials('') 
+    // }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh 'DevOps/jenkins/build/build.sh'
+            }
+
+        }
+
+        stage('Test') {
+            steps {
+                sh 'DevOps/jenkins/test/'
+            }
+        }
+
+        stage('Push') {
+            steps {
+                sh 'DevOps/jenkins/push/push.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'DevOps/jenkins/deploy/deploy.sh'
+            }
+        }
+    }
+}
