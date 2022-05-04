@@ -1,12 +1,16 @@
 pipeline {
 
     agent any
-    
-    // environment {
-    //     PASS = credentials('') 
-    // }
 
     stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'git_accessToken',
+                    url: 'https://github.com/enginedevp/UnnamedProject.git'
+            }
+        }
 
         stage('Build') {
             steps {
