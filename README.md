@@ -42,4 +42,4 @@
 
     Jenkins, Github 연동, github webhook
     Jenkins를 로컬 컴퓨터의 docker container에서 실행하고 공유기에서 포트포워딩이나 ngrok을 사용해서 commit을 push할 때 github webhook이 작동한 것은 확인했으나, 
-    같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음 --> Branches to build > Branch Specifier을 'any'로 하면 작동 됨. ${sha1}로 테스트
+    같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음 
