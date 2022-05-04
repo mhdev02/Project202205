@@ -41,3 +41,11 @@
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
     Jenkins, Github 연동, github webhook
+    Jenkins를 로컬 컴퓨터의 docker container에서 실행하고 공유기에서 포트포워딩이나 ngrok을 사용해서 commit을 push할 때 github webhook이 작동한 것은 확인했으나, 
+    같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음 
+    --> Jenkins job 설정에서 General > GitHub Project > Project url 설정
+                           Build Triggers > GitHub Pull Requests(GitHub Integration Plugin 설치 필요)
+                                          > Trigger Mode: Hooks  with Persisted Data
+                                          > Trigger Events: Pull Request Opened
+                           Pipeline  > Branch Specifier: feature**
+    위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
