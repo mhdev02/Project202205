@@ -1,39 +1,11 @@
 pipeline {
-
     agent any
-
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main',
                     credentialsId: 'git_accessToken',
                     url: 'https://github.com/enginedevp/UnnamedProject.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'DevOps/jenkins/build/build.sh'
-            }
-
-        }
-
-        stage('Test') {
-            steps {
-                sh 'DevOps/jenkins/test/'
-            }
-        }
-
-        stage('Push') {
-            steps {
-                sh 'DevOps/jenkins/push/push.sh'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'DevOps/jenkins/deploy/deploy.sh'
             }
         }
     }
