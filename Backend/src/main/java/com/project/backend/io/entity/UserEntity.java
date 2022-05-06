@@ -6,37 +6,40 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 5167896616374018174L;
-	
+
 	@Id
 	@GeneratedValue
 	private long id;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String userId;
 
-	@Column(nullable=false, length=20)
+	@Column(nullable = false, length = 20)
 	private String firstName;
-	
-	@Column(nullable=false, length=20)
+
+	@Column(nullable = false, length = 20)
 	private String lastName;
-	
-	@Column(nullable=false, length=100, unique=true)  
+
+	@Column(nullable = false, length = 100, unique = true)
 	private String email;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String encryptedPassword;
-	
-	@OneToMany(mappedBy="userPurchases", cascade=CascadeType.ALL) // the field in AddressEntity is "userDetails"
+
+	@OneToMany(mappedBy = "userPurchases", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+																								
+																								
 	private List<ItemEntity> items;
 
 	public long getId() {
