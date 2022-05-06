@@ -9,7 +9,8 @@ import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
 
 @Repository
-public interface ItemRepository extends CrudRepository<ItemEntity, Long>{
+public interface ItemRepository extends CrudRepository<ItemEntity, Long> {
 	List<ItemEntity> findAllByUserPurchases(UserEntity userEntity);
-	ItemEntity findByAddressId(String addressId);
+
+	ItemEntity findByItemId(String itemId);
 }
