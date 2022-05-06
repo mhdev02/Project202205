@@ -11,29 +11,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="items")
+@Table(name = "items")
 public class ItemEntity implements Serializable {
 
 	private static final long serialVersionUID = 6664315447659391969L;
-	
+
 	@Id
 	@GeneratedValue
 	private long id;
-	
-	@Column(length=30, nullable=false) 
+
+	@Column(length = 30, nullable = false)
 	private String itemId;
-	
-	@Column(length=20, nullable=false)
+
+	@Column(length = 20, nullable = false)
 	private String name;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer price;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer stock;
-	
-	@ManyToOne 
-	@JoinColumn(name="users_id") // Table-name_Field-name
+
+	@ManyToOne
+	@JoinColumn(name = "users_id")
 	private UserEntity userPurchases;
 
 	public long getId() {
