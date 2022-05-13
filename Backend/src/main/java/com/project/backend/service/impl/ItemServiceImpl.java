@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.backend.common.dto.ItemDto;
 import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.ItemRepository;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.ItemService;
-import com.project.backend.shared.dto.ItemDto;
 
 @Service
 public class ItemServiceImpl implements ItemService {
