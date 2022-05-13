@@ -8,7 +8,7 @@
 
 ## 기술 스택과 개발 환경 
 
-    Java, Spring Boot, Jenkins, Docker, MySQL | Spring Tool Suite, Visual Studio Code
+    Java, Spring Framework, Javascript, Node.js, Jenkins, Terraform, Docker, MySQL | Spring Tool Suite, Visual Studio Code
 
 
 ## 브랜치 관리 전략  
