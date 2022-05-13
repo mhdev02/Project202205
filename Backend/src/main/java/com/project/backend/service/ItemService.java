@@ -2,7 +2,7 @@ package com.project.backend.service;
 
 import java.util.List;
 
-import com.project.backend.shared.dto.ItemDto;
+import com.project.backend.common.dto.ItemDto;
 
 public interface ItemService {
 
