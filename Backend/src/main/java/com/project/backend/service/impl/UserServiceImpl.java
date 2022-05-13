@@ -12,13 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.backend.common.Utils;
+import com.project.backend.common.dto.ItemDto;
+import com.project.backend.common.dto.UserDto;
 import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.UserService;
-import com.project.backend.shared.Utils;
-import com.project.backend.shared.dto.ItemDto;
-import com.project.backend.shared.dto.UserDto;
 import com.project.backend.ui.model.response.ErrorMessages;
 
 @Service
