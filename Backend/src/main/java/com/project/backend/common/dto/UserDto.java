@@ -1,4 +1,4 @@
-package com.project.backend.shared.dto;
+package com.project.backend.common.dto;
 
 import java.io.Serializable;
 import java.util.List;

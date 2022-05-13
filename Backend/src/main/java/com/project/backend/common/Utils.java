@@ -1,4 +1,4 @@
-package com.project.backend.shared;
+package com.project.backend.common;
 
 import java.security.SecureRandom;
 import java.util.Date;
