@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.backend.common.dto.ItemDto;
+import com.project.backend.common.dto.UserDto;
 import com.project.backend.service.ItemService;
 import com.project.backend.service.UserService;
-import com.project.backend.shared.dto.ItemDto;
-import com.project.backend.shared.dto.UserDto;
 import com.project.backend.ui.model.request.UserRequestModel;
 import com.project.backend.ui.model.response.ItemRest;
 import com.project.backend.ui.model.response.RequestStatus;
