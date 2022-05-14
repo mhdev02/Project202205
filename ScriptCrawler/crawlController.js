@@ -3,32 +3,31 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const { intersection } = require("./intersection");
 
-let lists = ["\n", "\n\n", "''", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved."];
+let lists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
+  "로그인", "5월", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판"];
 
 let crawl = async function (req, res) {
+  
   const url1 = req.body.url1;
   const url2 = req.body.url2;
   let contents1;
   let contents2;
 
-    let html1 = await doRequest(url1);
-    let $ = cheerio.load(html1);
-    contents1 = $('body').text();
+  let html1 = await doRequest(url1);
+  let $ = cheerio.load(html1);
+  contents1 = $('body').text();
 
-    let html2 = await doRequest(url2);
-    let $1 = cheerio.load(html2);
-    contents2 = $1('body').text();
+  let html2 = await doRequest(url2);
+  let $1 = cheerio.load(html2);
+  contents2 = $1('body').text();
 
- 
+  for (let i = 0; i < lists.length; i++) {
+    var regex = new RegExp(lists[i], "gi")
+    contents1 = contents1.replace(regex, ' ');
+    contents2 = contents2.replace(regex, ' ');
+  }
 
-    for (let i = 0; i < lists.length; i++) {
-      var regex = new RegExp(lists[i], "gi")
-      contents1 = contents1.replace(regex, ' ');
-      contents2 = contents2.replace(regex, ' ');
-    }
-  
-  console.log(typeof contents1, typeof contents2)
-  let result = intersection(contents1.split(" "), contents2.split(" "));
+  let result = intersection(contents1.split(" "), contents2.split(" "))
 
   let timestamp = new Date();
   let filename = timestamp.getMonth() + '' + timestamp.getDate() + '' + timestamp.getHours() + ''
