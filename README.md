@@ -49,3 +49,7 @@
                                           > Trigger Events: Pull Request Opened
                            Pipeline  > Branch Specifier: feature**
     위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
+
+
+    ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 request() 내부에서 불러온 값이 request() 밖에서 선언된 변수에 저장되지 않았음
+    -> await는 Promise와 같이 쓴다는 부분을 알게 되어 request()를 Promise로 감싸주는 또 다른 함수를 생성해서 해결
