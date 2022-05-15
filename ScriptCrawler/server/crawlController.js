@@ -1,10 +1,13 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
-const { intersection } = require("./intersection");
+const Redis = require('ioredis');
+
+const redis1 = new Redis();
+const redis = redis1.duplicate();
 
 let lists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
-  "로그인", "5월", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판"];
+  "로그인", "5월", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판", "개인정보취급방침"];
 
 let crawl = async function (req, res) {
   
@@ -27,13 +30,15 @@ let crawl = async function (req, res) {
     contents2 = contents2.replace(regex, ' ');
   }
 
-  let result = intersection(contents1.split(" "), contents2.split(" "))
+  await redis.publish('work', JSON.stringify(contents1 + "+++" + contents2));
 
-  let timestamp = new Date();
-  let filename = timestamp.getMonth() + '' + timestamp.getDate() + '' + timestamp.getHours() + ''
-    + timestamp.getMinutes() + '' + timestamp.getSeconds();
+  await redis.hgetall('keywords', (err, values) => {
+    let timestamp = new Date();
+    let filename = timestamp.getMonth() + '' + timestamp.getDate() + '' + timestamp.getHours() + ''
+      + timestamp.getMinutes() + '' + timestamp.getSeconds();
+    writeFile(`./data/${filename}.txt`, values.work);
+  })
 
-  writeFile(`./data/${filename}.txt`, JSON.stringify(result));
   res.status(201).send('ok');
 }
 
