@@ -85,3 +85,10 @@
     - ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
     "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인하고 
     rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
+
+
+    - Docker container에서 ScriptCrawler/worker를 실행하고 redis-server는 EC2 host에서 실행하다보니 container가 host와 통신할 수 있게 설정이 필요했음
+    https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/
+
+        docker run -d --network=host my-container:latest
+        (Now your container can reference localhost or 127.0.0.1 directly)
