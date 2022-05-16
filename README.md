@@ -15,6 +15,7 @@
 
 <img width="843" alt="Screen Shot 2022-05-16 at 11 50 21 PM" src="https://user-images.githubusercontent.com/62423408/168623999-7988e335-24f5-4cf2-a443-a01749cee242.png">
 
+
 ## 브랜치 관리 전략  
 
     feature 브랜치에서 main 브랜치로 merge
@@ -41,6 +42,19 @@
 
 ## 주요 기능 및 특징
 
+    Backend(Spring Framework)
+
+        일반적인 프로그램 구현을 목적으로 함
+        회원 가입 기능과 로그인 시 JWT가 발행되도록 구현
+        
+
+    ScriptCrawler(Node.js, Redis)
+
+        두 개의 사이트에서 공통으로 등장하는 키워드들을 "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성(예를 들어, 신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
+        로그인 기능은 없는 대신에 rate limit 로직을 추가해서 5분 동안 최대 20회의 요청만 보낼 수 있도록 하여 서버 성능(t2.micro) 범위 내에서 작동되도록 시도
+        POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 body 값으로 주면 작동이 상대적으로 잘 됨을 확인
+        두 개의 Container(Tomcat 서버, Node.js 서버)가 한 개의 EC2(t2.micro) 서버에서 작동하는 구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 않도록 시도
+
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
@@ -64,3 +78,6 @@
 
 
     TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 하고 어플리케이션의 품질을 높인다고 함
+
+
+    ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인해고 rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
