@@ -8,7 +8,8 @@
 
 ## 기술 스택과 개발 환경 
 
-    Java, Spring Framework, Javascript, Node.js, Jenkins, Terraform, Docker, MySQL | Spring Tool Suite, Visual Studio Code
+    - 기술 스택: Java, Spring Framework, Javascript, Node.js, Jenkins, Terraform, Docker, MySQL, Redis
+    - 개발 환경: Spring Tool Suite, Visual Studio Code
 
 
 ## 아키텍쳐
@@ -21,9 +22,9 @@
     feature 브랜치에서 main 브랜치로 merge
 
 
-## 커밋 메시지
+## 커밋 메시지 타입
 
-    FIX: 버그 수정
+    FIX: 버그 수정, 오타 등의 간단한 수정 
     CREATE: 새로운 기능 추가 등의 코드 작성
     UPDATE: 기존 코드 수정
     DELETE: 코드 파일 삭제
@@ -50,15 +51,15 @@
 
     ScriptCrawler(Node.js, Redis)
 
-        두 개의 사이트에서 공통으로 등장하는 키워드들을 "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성(예를 들어, 신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
-        로그인 기능은 없는 대신에 rate limit 로직을 추가해서 5분 동안 최대 20회의 요청만 보낼 수 있도록 하여 서버 성능(t2.micro) 범위 내에서 작동되도록 시도
-        POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 body 값으로 주면 작동이 상대적으로 잘 됨을 확인
-        두 개의 Container(Tomcat 서버, Node.js 서버)가 한 개의 EC2(t2.micro) 서버에서 작동하는 구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 않도록 시도
+        - 두 개의 사이트에서 공통으로 등장하는 키워드들을 "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성(예를 들어, 신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
+        - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 5분 동안 최대 20회의 요청만 보낼 수 있도록 하여 서버 성능(t2.micro) 범위 내에서 작동되도록 시도
+        - POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 body 값으로 주면 작동이 상대적으로 잘 됨을 확인
+        - 두 개의 Container(Tomcat 서버, Node.js 서버)가 한 개의 EC2(t2.micro) 서버에서 작동하는 구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 않도록 시도
 
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
-    Jenkins, Github 연동, github webhook
+    - Jenkins, Github 연동
     Jenkins를 로컬 컴퓨터의 docker container에서 실행하고 공유기에서 포트포워딩이나 ngrok을 사용해서 commit을 push할 때 github webhook이 작동한 것은 확인했으나, 
     같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음 
     --> Jenkins job 설정에서 General > GitHub Project > Project url 설정
@@ -69,15 +70,17 @@
     위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
 
 
-    ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 request() 내부에서 불러온 값이 request() 밖에서 선언된 변수에 저장되지 않았음
+    - ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 request() 내부에서 불러온 값이 request() 밖에서 선언된 변수에 저장되지 않았음
     -> await는 Promise와 같이 쓴다는 부분을 알게 되어 request()를 Promise로 감싸주는 또 다른 함수를 생성해서 해결
 
 
-    ScriptCrawler가 두 개의 검색 포털, 신문 등에서 공통으로 등장하는 키워드를 뽑도록 만들어졌지만, 사이트 조합에 따라 키워드가 2~3개 정도만 나오는 경우도 있음
+    - ScriptCrawler가 두 개의 검색 포털, 신문 등에서 공통으로 등장하는 키워드를 뽑도록 만들어졌지만, 사이트 조합에 따라 키워드가 2~3개 정도만 나오는 경우도 있음
     서울 신문(https://www.seoul.co.kr), 한겨레 신문(https://www.hani.co.kr), 경향 신문(https://www.khan.co.kr/)에서 테스트 해봄
 
 
-    TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 하고 어플리케이션의 품질을 높인다고 함
+    - TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 하고 어플리케이션의 품질을 높인다고 함
 
 
-    ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인해고 rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
+    - ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
+    "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인하고 
+    rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
