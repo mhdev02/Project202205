@@ -15,7 +15,7 @@
 
 ## 아키텍쳐
 
-<img width="843" alt="Screen Shot 2022-05-16 at 11 50 21 PM" src="https://user-images.githubusercontent.com/62423408/168623999-7988e335-24f5-4cf2-a443-a01749cee242.png">
+<img width="659" alt="Screen Shot 2022-05-17 at 3 18 20 PM" src="https://user-images.githubusercontent.com/62423408/168742241-ae69471d-ca06-4dcd-8df4-eb79c40961ac.png">
 
 
 ## 브랜치 관리 전략  
