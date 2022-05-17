@@ -45,7 +45,7 @@ let crawl = async function (req, res) {
       res.status(201).send(values.work);
     })
   } catch (e) {
-    res.status(500).send("An error occured. The server requires to check a problem.")
+    res.status(500).send(`An error occured. The server requires to check a problem. ${e}`)
   }
 }
 
