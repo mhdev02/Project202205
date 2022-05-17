@@ -44,6 +44,11 @@
 
 ## 주요 기능 및 특징
 
+    Infrastructure
+
+        - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 프로젝트 동안은 종료시키지 않음)
+        
+
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
