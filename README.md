@@ -99,7 +99,7 @@
         (Now your container can reference localhost or 127.0.0.1 directly)
 
     
-    Nginx를 EC2 host에 설치하고 jenkins는 docker container로 실행시킬 때 proxy_pass로 jenkins container로 넘어가지 않아 5시간 정도 
-    해결책 조사 및 여러 시도를 거쳐 보류하기로 함. Nginx, Jenkins는 개별적으로 동작함을 확인
+    Nginx를 EC2 host에 설치하고 jenkins는 docker container로 실행시킬 때 Nginx를 통해 proxy_pass로 jenkins container로 넘어가지 않아 5시간 정도 해결책 조사 및 여러 시도를 거쳐 보류하기로 함. 
+    Nginx, Jenkins는 개별적으로 동작함을 확인
     시니어 혹은 사수가 있으면 좋겠다는 생각을 하면서 stackoverflow에 관련 질문을 올려놓음
     (https://stackoverflow.com/questions/72278474/nginx-on-ec2-host-jenkins-on-docker-container)
