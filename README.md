@@ -9,13 +9,13 @@
 
 ## 기술 스택과 개발 환경 
 
-    - 기술 스택: Java, Spring Framework, Javascript, Node.js, MySQL
-    - 개발 환경: Spring Tool Suite, Visual Studio Code
+    기술 스택: Java, Spring Framework, Javascript, Node.js, MySQL
+    개발 환경: Spring Tool Suite, Visual Studio Code
 
 
 ## 아키텍쳐
 
-<img width="843" alt="Screen Shot 2022-05-17 at 3 28 59 PM" src="https://user-images.githubusercontent.com/62423408/168743858-9821c57e-3f35-48ea-ab26-072bda2b691e.png">
+<img width="843" alt="Screen Shot 2022-05-18 at 3 03 58 AM" src="https://user-images.githubusercontent.com/62423408/168880289-a7665233-86dc-4e3c-820f-3ca77090871a.png">
 
 
 ## 브랜치 관리 전략  
@@ -65,35 +65,45 @@
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
 
-    - Jenkins, Github 연동
+    Jenkins, Github 연동
+    
     Jenkins를 로컬 컴퓨터의 docker container에서 실행하고 공유기에서 포트포워딩이나 ngrok을 사용해서 commit을 push할 때 github webhook이 작동한 것은 확인했으나, 
     같은 설정과 환경에서 Pull Request할 때는 github webhook에 의해 Jenkins의 Build가 작동하지 않음 
-    --> Jenkins job 설정에서 General > GitHub Project > Project url 설정
-                           Build Triggers > GitHub Pull Requests(GitHub Integration Plugin 설치 필요)
-                                          > Trigger Mode: Hooks  with Persisted Data
-                                          > Trigger Events: Pull Request Opened
-                           Pipeline  > Branch Specifier: feature**
-    위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
+    
+        Manage Jenkins > Configure System > GitHub > GitHub Server에서 Credentials를 GitHub Access token을 이용해서 설정
+        Jenkins job 설정에서 General > GitHub Project > Project url 설정
+                               Build Triggers > GitHub Pull Requests(GitHub Integration Plugin 설치 필요)
+                                              > Trigger Mode: Hooks  with Persisted Data
+                                              > Trigger Events: Pull Request Opened
+                               Pipeline  > Branch Specifier: feature**
+        위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
 
 
-    - ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 request() 내부에서 불러온 값이 request() 밖에서 선언된 변수에 저장되지 않았음
-    -> await는 Promise와 같이 쓴다는 부분을 알게 되어 request()를 Promise로 감싸주는 또 다른 함수를 생성해서 해결
+    ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 request() 내부에서 불러온 값이 request() 밖에서 선언된 변수에 저장되지 않았음
+    
+        await는 Promise와 같이 쓴다는 부분을 알게 되어 request()를 Promise로 감싸주는 또 다른 함수를 생성해서 해결
 
 
-    - ScriptCrawler가 두 개의 검색 포털, 신문 등에서 공통으로 등장하는 키워드를 뽑도록 만들어졌지만, 사이트 조합에 따라 키워드가 2~3개 정도만 나오는 경우도 있음
+    ScriptCrawler가 두 개의 검색 포털, 신문 등에서 공통으로 등장하는 키워드를 뽑도록 만들어졌지만, 사이트 조합에 따라 키워드가 2~3개 정도만 나오는 경우도 있음
     서울 신문(https://www.seoul.co.kr), 한겨레 신문(https://www.hani.co.kr), 경향 신문(https://www.khan.co.kr/)에서 테스트 해봄
 
 
-    - TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 하고 어플리케이션의 품질을 높인다고 함
+    TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 하고 어플리케이션의 품질을 높인다고 함
 
 
-    - ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
+    ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
     "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인하고 
     rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
 
 
-    - Docker container에서 ScriptCrawler/worker를 실행하고 redis-server는 EC2 host에서 실행하다보니 container가 host와 통신할 수 있게 설정이 필요했음
+    Docker container에서 ScriptCrawler/worker를 실행하고 redis-server는 EC2 host에서 실행하다보니 container가 host와 통신할 수 있게 설정이 필요했음
     https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/
 
         docker run -d --network=host my-container:latest
         (Now your container can reference localhost or 127.0.0.1 directly)
+
+    
+    Nginx를 EC2 host에 설치하고 jenkins는 docker container로 실행시킬 때 Nginx를 통해 proxy_pass로 jenkins container로 넘어가지 않아 5시간 정도 해결책 조사 및 여러 시도를 거쳐 보류하기로 함. 
+    Nginx, Jenkins는 개별적으로 동작함을 확인
+    시니어 혹은 사수가 있으면 좋겠다는 생각을 하면서 stackoverflow에 관련 질문을 올려놓음
+    (https://stackoverflow.com/questions/72278474/nginx-on-ec2-host-jenkins-on-docker-container)
