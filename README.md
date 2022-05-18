@@ -109,19 +109,21 @@
 
     ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 
     작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
-    "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 발생했고 
-    이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인하고 rate limit 초과 시 발생하는 response에 return을 명시하여 해결 함.
+    "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"라는 에러가 
+    발생했고 이는 응답을 두 번 보내려고 할 때 발생한다는 사실을 확인하고 rate limit 초과 시 발생하는 response에 
+    return을 명시하여 해결 함.
 
 
-    Docker container에서 ScriptCrawler/worker를 실행하고 redis-server는 EC2 host에서 실행하다보니 container가 host와 
-    통신할 수 있게 설정이 필요했음
+    Docker container에서 ScriptCrawler/worker를 실행하고 redis-server는 EC2 host에서 실행하다보니 container가 
+    host와 통신할 수 있게 설정이 필요했음
     https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/
 
         docker run -d --network=host my-container:latest
         (Now your container can reference localhost or 127.0.0.1 directly)
 
     
-    Nginx를 EC2 host에 설치하고 jenkins는 docker container로 실행시킬 때 Nginx를 통해 proxy_pass로 jenkins container로 
-    넘어가지 않아 5시간 정도 해결책 조사 및 여러 시도를 거쳐 보류하기로 함. Nginx, Jenkins는 개별적으로 동작함을 확인
+    Nginx를 EC2 host에 설치하고 jenkins는 docker container로 실행시킬 때 Nginx를 통해 proxy_pass로 
+    jenkins container로 넘어가지 않아 5시간 정도 해결책 조사 및 여러 시도를 거쳐 보류하기로 함. 
+    Nginx, Jenkins는 개별적으로 동작함을 확인
     시니어 혹은 사수가 있으면 좋겠다는 생각을 하면서 stackoverflow에 관련 질문을 올려놓음
     (https://stackoverflow.com/questions/72278474/nginx-on-ec2-host-jenkins-on-docker-container)
