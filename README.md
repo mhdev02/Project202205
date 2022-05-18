@@ -58,10 +58,13 @@
     ScriptCrawler(Node.js, Redis)
 
         - 두 개의 사이트에서 공통으로 등장하는 키워드들을 "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성(예를 들어, 신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
-        - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 15초 동안 최대 20회의 요청만 보낼 수 있도록 하여 서버 성능(t2.micro) 범위 내에서 작동되도록 시도(apache benchmark를 사용해서 확인해보니 동시 요청 21회부터 요청 실패가 나는 것을 확인하고 15초로 수정. 이때 약 6%의 CPU 사용량 증가를 확인)
+        - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 15초 동안 최대 20회의 요청만 보낼 수 있도록 하여 서버 성능(t2.micro) 범위 내에서 작동되도록 시도
+        (apache benchmark를 사용해서 확인해보니 동시 요청 21회부터 요청 실패가 나는 것을 확인하고 15초로 수정. 아래 터미널 스크린샷 사진에서 확인 
+        - https://erangad.medium.com/load-testing-a-rest-api-using-post-requests-6b0338196af0)
         - POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 body 값으로 주면 작동이 상대적으로 잘 됨을 확인
-<img width="300" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
         - (Pub/Sub 패턴) 두 개의 Container(Tomcat 서버, Node.js 서버)가 한 개의 EC2(t2.micro) 서버에서 작동하는 구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 않도록 시도
+
+<img width="500" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
 
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
