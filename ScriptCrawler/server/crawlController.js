@@ -10,7 +10,7 @@ let FiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All",
 
 let callCount = 0;
 
-setInterval(() => InitializeCallCount(), 300);
+setInterval(() => InitializeCallCount(), 15000);
 
 let crawl = async function (req, res) {
 
