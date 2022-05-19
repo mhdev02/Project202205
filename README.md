@@ -48,6 +48,7 @@
 
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
+        - GitHub에서 해당 프로젝트 레포의 feature에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 테스트, 배포가 이루어지도록 함
         
 
     Backend(Spring Framework)
