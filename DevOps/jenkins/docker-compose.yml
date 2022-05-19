@@ -1,6 +1,7 @@
 version: '3'
 services:
   jenkins:
+    restart: always
     image: jenkins/jenkins:lts
     ports:
       - "30000:8080"
