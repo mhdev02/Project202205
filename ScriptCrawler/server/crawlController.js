@@ -5,18 +5,18 @@ const Redis = require('ioredis');
 const redis1 = new Redis();
 const redis2 = redis1.duplicate();
 
-let FiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
+let fiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
   "로그인", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판", "개인정보취급방침", ","];
 
 let callCount = 0;
 
-setInterval(() => InitializeCallCount(), 15000);
+setInterval(() => initializeCallCount(), 15000);
 
 let crawl = async function (req, res) {
 
   callCount++;
   if (callCount >= 21) {
-    return res.status(429).send("You can send only 50 requests every 5 minutes");
+    return res.status(429).send("You can send only 50 requests every 15 seconds");
   };
 
   try {
@@ -33,8 +33,8 @@ let crawl = async function (req, res) {
     let $1 = cheerio.load(html2);
     contents2 = $1('body').text();
 
-    for (let i = 0; i < FiteringLists.length; i++) {
-      var regex = new RegExp(FiteringLists[i], "gi")
+    for (let i = 0; i < fiteringLists.length; i++) {
+      var regex = new RegExp(fiteringLists[i], "gi")
       contents1 = contents1.replace(regex, ' ');
       contents2 = contents2.replace(regex, ' ');
     }
@@ -61,7 +61,7 @@ function doRequest(url) {
   });
 }
 
-function InitializeCallCount() {
+function initializeCallCount() {
   callCount = 0;
 }
 
