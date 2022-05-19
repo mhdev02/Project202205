@@ -2,12 +2,13 @@ version: '3'
 services:
   jenkins:
     restart: always
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+    container_name: jenkins
     ports:
       - "30000:8080"
+    expose:
+      - "8080"
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
-      # sudo chmod 666 /var/run/docker.sock
       - /var/run/docker.sock:/var/run/docker.sock
-
-      
