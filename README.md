@@ -53,11 +53,12 @@
 
             설정해야 할 jenkins credentials(Secret text)
 
-                github id with access token
+                github id(with access token)
                 dockerhub-id 
                 dockerhub-password
                 ssh-key  
                 server-ip
+                workspace
         
 
     Backend(Spring Framework)
