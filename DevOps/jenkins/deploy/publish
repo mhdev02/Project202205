@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export IMAGE=$(sed -n '1p' /home/ec2-user/.cred)
+export TAG=$(sed -n '2p' /home/ec2-user/.cred)
+export ID=$(sed -n '3p' /home/ec2-user/.cred)
+export PASSWORD=$(sed -n '4p' /home/ec2-user/.cred)
+
+sudo docker stop $(docker ps -a -q)
+sudo docker rm -f $(docker ps -aq)
+sudo docker rmi -f $(docker images -q)
+
+docker login -u $ID -p $PASSWORD
+
+docker pull $ID/$IMAGE:$TAG
+
+docker run -d -t $IMAGE:$TAG --name backend -p 8080:8080
