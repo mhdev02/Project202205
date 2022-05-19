@@ -9,3 +9,5 @@ docker login -u $ID -p $PASSWORD
 docker tag $IMAGE:$BUILD_TAG $ID/$IMAGE:$BUILD_TAG
 
 docker push $ID/$IMAGE:$BUILD_TAG
+
+sudo docker rmi -f $(docker images -q)
