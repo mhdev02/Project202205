@@ -1,0 +1,53 @@
+pipeline {
+
+    agent any
+    
+    environment {
+        ID = credentials('dockerhub-id')
+        PASSWORD = credentials('dockerhub-password') 
+        KEY = credentials('ssh-key') 
+        IP = credentials('server-ip') 
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh '''
+                    ./build/mvn.sh mvn -B -DskipTests clean package
+                    ./build/build.sh
+                '''
+            }
+
+            post {
+                success {
+                   archiveArtifacts artifacts: '../../Backend/target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './test/mvn.sh mvn test'
+            }
+
+            post {
+                always {
+                    junit '../../Backend/target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                sh './push/push.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh './deploy/deploy.sh'
+            }
+        }
+    }
+}
