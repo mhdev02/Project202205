@@ -14,39 +14,39 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    ./build/mvn.sh mvn -B -DskipTests clean package
-                    ./build/build.sh
+                    ./DevOps/jenkins/build/mvn.sh mvn -B -DskipTests clean package
+                    ./DevOps/jenkins/build/build.sh
                 '''
             }
 
             post {
                 success {
-                   archiveArtifacts artifacts: '../../Backend/target/*.jar', fingerprint: true
+                   archiveArtifacts artifacts: './Backend/target/*.jar', fingerprint: true
                 }
             }
         }
 
         stage('Test') {
             steps {
-                sh './test/mvn.sh mvn test'
+                sh './DevOps/jenkins/test/mvn.sh mvn test'
             }
 
             post {
                 always {
-                    junit '../../Backend/target/surefire-reports/*.xml'
+                    junit './Backend/target/surefire-reports/*.xml'
                 }
             }
         }
 
         stage('Push') {
             steps {
-                sh './push/push.sh'
+                sh './DevOps/jenkins/push/push.sh'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh './deploy/deploy.sh'
+                sh './DevOps/jenkins/deploy/deploy.sh'
             }
         }
     }
