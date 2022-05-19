@@ -88,8 +88,7 @@
                                Build Triggers > GitHub Pull Requests(GitHub Integration Plugin 설치)
                                               > Trigger Mode: Hooks  with Persisted Data
                                               > Trigger Events: Pull Request Opened
-                               Pipeline  > Branch Specifier: feature**
-        위와 같이 설정하면 feature로 시작하는 브랜치가 Pull Request될 때 jenkins job이 build 된다는 것을 확인함
+        위와 같이 설정하면 Pull Request이 발생하면 jenkins job이 build 된다는 것을 확인함
 
 
     ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 
