@@ -5,7 +5,6 @@ pipeline {
     environment {
         ID = credentials('dockerhub-id')
         PASSWORD = credentials('dockerhub-password') 
-        KEY = credentials('ssh-key') 
         IP = credentials('server-ip') 
         WORKSPACE = credentials('workspace') 
     }
