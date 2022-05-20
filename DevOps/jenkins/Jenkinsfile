@@ -8,6 +8,8 @@ pipeline {
         IP = credentials('server-ip') 
         WORKSPACE = credentials('workspace') 
         KEY = credentials('ssh-key') 
+        REDIS_IP = credentials('redis-ip') 
+        REDIS_PORT = credentials('redis-port') 
     }
 
     stages {
