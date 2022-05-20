@@ -23,4 +23,5 @@ docker pull $ID/$IMAGE1:$TAG
 docker pull $ID/$IMAGE2:$TAG
 
 docker run -d -p 8080:8080 $ID/$IMAGE1:jenkins-project-33
+sleep 1
 docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:jenkins-project-33
