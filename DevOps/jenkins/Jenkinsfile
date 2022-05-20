@@ -14,20 +14,20 @@ pipeline {
 
     stages {
 
-        stage('Build') {
-            steps {
-                sh '''
-                    ./DevOps/jenkins/build/mvn.sh mvn -B -DskipTests clean package
-                    ./DevOps/jenkins/build/build.sh
-                '''
-            }
+        // stage('Build') {
+        //     steps {
+        //         sh '''
+        //             ./DevOps/jenkins/build/mvn.sh mvn -B -DskipTests clean package
+        //             ./DevOps/jenkins/build/build.sh
+        //         '''
+        //     }
 
-            post {
-                success {
-                   archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
-                }
-            }
-        }
+        //     post {
+        //         success {
+        //            archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
+        //         }
+        //     }
+        // }
 
         // stage('Test') {
         //     steps {
@@ -41,11 +41,11 @@ pipeline {
         //     }
         // }
 
-        stage('Push') {
-            steps {
-                sh './DevOps/jenkins/push/push.sh'
-            }
-        }
+        // stage('Push') {
+        //     steps {
+        //         sh './DevOps/jenkins/push/push.sh'
+        //     }
+        // }
 
         stage('Deploy') {
             steps {
