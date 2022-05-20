@@ -9,7 +9,7 @@ sudo docker stop $(docker ps -a -q)
 sudo docker rm -f $(docker ps -aq)
 sudo docker rmi -f $(docker images -q)
 
-docker login -u $ID -p $PASSWORD
+echo $PASSWORD | docker login -u $ID --password-stdin
 
 docker pull $ID/$IMAGE:$TAG
 
