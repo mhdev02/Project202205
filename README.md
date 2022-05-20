@@ -50,7 +50,8 @@
           프로젝트 동안은 종료시키지 않음)
         - GitHub에서 해당 프로젝트 레포의 feature에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 테스트, 배포가
           이루어지도록 함
-          (free tier 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨)
+          (free tier CPU, RAM 및 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
+          jenkins job 한 개만 실행해도 CPU가 60% 이상으로 올라가고 멈춤. 1번 사진에서 확인)
 
             설정해야 할 jenkins credentials(Secret text)
 
@@ -75,7 +76,7 @@
         - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 15초 동안 최대 20회의 요청만 보낼 수 있도록 하여 
           서버 성능(t2.micro) 범위 내에서 작동되도록 시도
           (apache benchmark를 사용해서 확인해보니 동시 요청 21회부터 요청 실패가 나는 것을 확인하고 15초로 수정. 
-          아래 터미널 스크린샷 사진에서 확인 
+          아래 2번(터미널 스크린샷) 사진에서 확인 
           https://erangad.medium.com/load-testing-a-rest-api-using-post-requests-6b0338196af0)
         - POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 
           body 값으로 주면 작동이 상대적으로 잘 됨을 확인
@@ -83,7 +84,8 @@
           구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 
           않도록 시도
 
-<img width="500" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
+1번 <img width="500" alt="Screen Shot 2022-05-20 at 1 08 10 PM" src="https://user-images.githubusercontent.com/62423408/169450242-d240e7ae-0eec-46cb-bc68-967d8c98a745.png">
+2번 <img width="500" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
 
 
 ## 회고(개선 사항에 대한 아이디어, 프로젝트 동안의 Pain Point 등)
