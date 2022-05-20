@@ -22,7 +22,7 @@ pipeline {
 
             post {
                 success {
-                   archiveArtifacts artifacts: './Backend/target/*.jar', fingerprint: true
+                   archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
 
             post {
                 always {
-                    junit './Backend/target/surefire-reports/*.xml'
+                    junit 'Backend/target/surefire-reports/*.xml'
                 }
             }
         }
