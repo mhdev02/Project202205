@@ -27,17 +27,17 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh './DevOps/jenkins/test/mvn.sh mvn test'
-            }
+        // stage('Test') {
+        //     steps {
+        //         sh './DevOps/jenkins/test/mvn.sh mvn test'
+        //     }
 
-            // post {
-            //     always {
-            //         junit 'Backend/target/surefire-reports/*.xml'
-            //     }
-            // }
-        }
+        //     post {
+        //         always {
+        //             junit 'Backend/target/surefire-reports/*.xml'
+        //         }
+        //     }
+        // }
 
         stage('Push') {
             steps {
