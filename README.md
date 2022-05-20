@@ -172,3 +172,5 @@
         Jenkins 빌드 후 배포할 때 배포할 목적지 서버에 public ssh key를 처리하고 docker cp를 이용해서 
         Jenkins container에 private ssh key를 복사 후 docker exec -it jenkins /bin/bash와 같은 방법으로
         실행되고 있는 jenkins container에 접속해서 원격 서버에 ssh 연결이 되는지 확인하고 나서야 에러 해결함
+        + SSH Username with private key 방식의 credential로 설정해도 작동함을 확인. 이때 username은 보통
+        root 혹은 jenkins를 사용하는 것 같음. 둘 다 작동 확인
