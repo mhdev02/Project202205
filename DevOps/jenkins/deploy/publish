@@ -15,15 +15,14 @@ export REDIS_PORT=$(sed -n '8p' /home/ec2-user/.cred)
 
 
 sudo docker stop $(docker ps -a -q)
-# sudo docker rmi -f $(docker images -q)
+sudo docker rmi -f $(docker images -q)
 
 echo $PASSWORD | docker login -u $ID --password-stdin
 
 docker pull $ID/$IMAGE1:$TAG
 docker pull $ID/$IMAGE2:$TAG
 
-echo "running ${IMAGE2}..."
-docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:jenkins-project-33
-sleep 2
 echo "running ${IMAGE1}..."
-docker run -d -p 8080:8080 $ID/$IMAGE1:jenkins-project-33 
+docker run -d -p 8080:8080 $ID/$IMAGE1:$TAG
+echo "running ${IMAGE2}..."
+docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:$TAG
