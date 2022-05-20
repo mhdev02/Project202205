@@ -4,7 +4,7 @@ echo "***** Pushing the image to Docker Hub *****"
 
 IMAGE="backend"
 
-docker login -u $ID -p $PASSWORD
+echo $PASSWORD | docker login -u $ID --password-stdin
 
 docker push $ID/$IMAGE:$BUILD_TAG
 
