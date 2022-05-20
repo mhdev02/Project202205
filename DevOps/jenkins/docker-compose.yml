@@ -7,8 +7,6 @@ services:
     container_name: jenkins
     ports:
       - "30000:8080"
-    expose:
-      - "8080"
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

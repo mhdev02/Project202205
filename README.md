@@ -49,6 +49,16 @@
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
         - GitHub에서 해당 프로젝트 레포의 feature에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 테스트, 배포가 이루어지도록 함
+          (free tier 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨)
+
+            설정해야 할 jenkins credentials(Secret text)
+
+                github id(with access token)
+                dockerhub-id 
+                dockerhub-password
+                ssh-key  
+                server-ip
+                workspace
         
 
     Backend(Spring Framework)
@@ -88,7 +98,8 @@
                                Build Triggers > GitHub Pull Requests(GitHub Integration Plugin 설치)
                                               > Trigger Mode: Hooks  with Persisted Data
                                               > Trigger Events: Pull Request Opened
-        위와 같이 설정하면 Pull Request이 발생하면 jenkins job이 build 된다는 것을 확인함
+                               Pipeline > Branches to build > Branch Specifier: */feature**
+        위와 같이 설정하면 Pull Request이 발생하면 feature로 시작하는 브랜치를 jenkins job에서 빌드한다는 것을 확인함
 
 
     ScriptCrawler를 만들 때, request가 비동기로 작동한다고 해서 await request()와 같이 사용했더니 
