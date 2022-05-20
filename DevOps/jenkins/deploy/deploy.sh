@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "*********************"
+echo "***** Deploying *****"
+echo "*********************"
+
 echo backend > /home/ec2-user/.cred
 echo $BUILD_TAG >> /home/ec2-user/.cred
 echo $ID >> /home/ec2-user/.cred
