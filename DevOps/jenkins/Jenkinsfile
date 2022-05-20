@@ -21,6 +21,7 @@ pipeline {
                     ./DevOps/jenkins/build/build.sh
                 '''
             }
+        }
 
         //     post {
         //         success {
