@@ -84,8 +84,11 @@
           구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 
           않도록 시도
 
+
 1번 
+
 <img width="500" alt="Screen Shot 2022-05-20 at 1 08 10 PM" src="https://user-images.githubusercontent.com/62423408/169450242-d240e7ae-0eec-46cb-bc68-967d8c98a745.png">
+
 2번 
 <img width="500" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
 
