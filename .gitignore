@@ -2,6 +2,7 @@
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
 
 **/jenkins_home/
+**/jenkins _home/
 .DS_Store
 
 ### Eclipse ###
