@@ -17,4 +17,4 @@ echo $PASSWORD | docker login -u $ID --password-stdin
 
 docker pull $ID/$IMAGE:$TAG
 
-docker run -d -t $IMAGE:$TAG -p 8080:8080 $ID/$IMAGE:TAG
+docker run -d -p 8080:8080 $ID/$IMAGE:$TAG
