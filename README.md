@@ -15,7 +15,7 @@
 
 ## 아키텍쳐
 
-<img width="843" alt="Screen Shot 2022-05-18 at 3 03 58 AM" src="https://user-images.githubusercontent.com/62423408/168880289-a7665233-86dc-4e3c-820f-3ca77090871a.png">
+<img width="892" alt="Screen Shot 2022-05-20 at 9 50 20 AM" src="https://user-images.githubusercontent.com/62423408/169427002-b09e9a04-8677-4d43-9446-5fb599772ec3.png">
 
 
 ## 브랜치 관리 전략  
@@ -48,23 +48,45 @@
 
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
-        - GitHub에서 해당 프로젝트 레포의 feature에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 테스트, 배포가 이루어지도록 함
-          (free tier 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨)
+        - GitHub에서 해당 프로젝트 레포에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 배포가
+          이루어지도록 함
+          (free tier CPU, RAM 및 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
+          jenkins job 한 개만 실행해도 CPU가 60% 이상으로 올라가고 멈춤. 1번 사진에서 확인)
 
-            설정해야 할 jenkins credentials(Secret text)
+            설정해야 할 jenkins credentials(Secret text, SSH Username with private key)
 
                 github id(with access token)
                 dockerhub-id 
                 dockerhub-password
-                ssh-key  
-                server-ip
-                workspace
+                ssh-key: 배포 서버 ssh 접속을 위한 private key(jenkins container에 직접 복사해서 쓸 수도 있고
+                         credential 설정도 가능)
+                server-ip: 배포 서버 IP
+                redis-ip: 레디스 서버가 동작하고 있는 서버 IP
+                redis-port: 레디스 서버 포트
+                workspace: ../jenkins_home/workspace/ITEM_NAME
         
 
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능과 로그인 시 JWT가 발행되도록 구현
+        - 회원 가입 기능
+
+            POST /users  Content-Type: application/json
+            {
+                "firstName": "",
+                "lastName": "",
+                "email": "@",
+                "password": "",
+                "items": []
+            }
+
+        - 로그인 시 JWT가 발행되도록 구현
+
+            POST /users/login  Content-Type: application/json
+            {
+                "email": "@",
+                "password": ""
+            }
         
 
     ScriptCrawler(Node.js, Redis)
@@ -74,13 +96,20 @@
         - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 15초 동안 최대 20회의 요청만 보낼 수 있도록 하여 
           서버 성능(t2.micro) 범위 내에서 작동되도록 시도
           (apache benchmark를 사용해서 확인해보니 동시 요청 21회부터 요청 실패가 나는 것을 확인하고 15초로 수정. 
-          아래 터미널 스크린샷 사진에서 확인 
+          아래 2번(터미널 스크린샷) 사진에서 확인 
           https://erangad.medium.com/load-testing-a-rest-api-using-post-requests-6b0338196af0)
         - POST 요청에서 { "url1": "https://www.seoul.co.kr/", "url2": "https://www.hani.co.kr/" }을 
           body 값으로 주면 작동이 상대적으로 잘 됨을 확인
         - (Pub/Sub 패턴) 두 개의 Container(Tomcat 서버, Node.js 서버)가 한 개의 EC2(t2.micro) 서버에서 작동하는 
           구조에서 Redis를 이용해서 공통 키워드를 찾는 로직은 다른 EC2(t2.micro)에서 실행하도록 하여 성능 부하가 일어나지 
           않도록 시도
+
+
+1번 
+
+<img width="500" alt="Screen Shot 2022-05-20 at 1 08 10 PM" src="https://user-images.githubusercontent.com/62423408/169450242-d240e7ae-0eec-46cb-bc68-967d8c98a745.png">
+
+2번 
 
 <img width="500" alt="Screen Shot 2022-05-19 at 12 18 39 AM" src="https://user-images.githubusercontent.com/62423408/169086200-44c0a01c-b191-48e6-8704-095daa8d8e73.png">
 
@@ -138,3 +167,12 @@
     Nginx, Jenkins는 개별적으로 동작함을 확인
     시니어 혹은 사수가 있으면 좋겠다는 생각을 하면서 stackoverflow에 관련 질문을 올려놓음
     (https://stackoverflow.com/questions/72278474/nginx-on-ec2-host-jenkins-on-docker-container)
+
+
+    jenkins pipeline에서 배포할 때마다 Host key verification failed 에러가 발생
+
+        Jenkins 빌드 후 배포할 때 배포할 목적지 서버에 public ssh key를 처리하고 docker cp를 이용해서 
+        Jenkins container에 private ssh key를 복사 후 docker exec -it jenkins /bin/bash와 같은 방법으로
+        실행되고 있는 jenkins container에 접속해서 원격 서버에 ssh 연결이 되는지 확인하고 나서야 에러 해결함
+        + SSH Username with private key 방식의 credential로 설정해도 작동함을 확인. 이때 username은 보통
+        root 혹은 jenkins를 사용하는 것 같음. 둘 다 작동 확인

@@ -1,16 +1,28 @@
 #!/bin/bash
 
-export IMAGE=$(sed -n '1p' /home/ec2-user/.cred)
-export TAG=$(sed -n '2p' /home/ec2-user/.cred)
-export ID=$(sed -n '3p' /home/ec2-user/.cred)
-export PASSWORD=$(sed -n '4p' /home/ec2-user/.cred)
+echo "***************************************************"
+echo "***** running the script on the remote server *****"
+echo "***************************************************"
+
+export IMAGE1=$(sed -n '1p' /home/ec2-user/.cred)
+export IMAGE2=$(sed -n '2p' /home/ec2-user/.cred)
+export TAG=$(sed -n '3p' /home/ec2-user/.cred)
+export ID=$(sed -n '4p' /home/ec2-user/.cred)
+export PASSWORD=$(sed -n '5p' /home/ec2-user/.cred)
+export IP=$(sed -n '6p' /home/ec2-user/.cred)
+export REDIS_IP=$(sed -n '7p' /home/ec2-user/.cred)
+export REDIS_PORT=$(sed -n '8p' /home/ec2-user/.cred)
+
 
 sudo docker stop $(docker ps -a -q)
-sudo docker rm -f $(docker ps -aq)
 sudo docker rmi -f $(docker images -q)
 
-docker login -u $ID -p $PASSWORD
+echo $PASSWORD | docker login -u $ID --password-stdin
 
-docker pull $ID/$IMAGE:$TAG
+docker pull $ID/$IMAGE1:$TAG
+docker pull $ID/$IMAGE2:$TAG
 
-docker run -d -t $IMAGE:$TAG --name backend -p 8080:8080
+echo "running ${IMAGE1}..."
+docker run -d -p 8080:8080 $ID/$IMAGE1:$TAG
+echo "running ${IMAGE2}..."
+docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:$TAG

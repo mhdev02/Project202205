@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "*******************"
 echo "***** Testing *****"
+echo "*******************"
 
 docker run --rm -v "${WORKSPACE}/Backend":/app -v "${WORKSPACE}/Backend":/root/.m2/ -w /app maven:3-alpine "$@"

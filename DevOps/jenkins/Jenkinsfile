@@ -5,9 +5,11 @@ pipeline {
     environment {
         ID = credentials('dockerhub-id')
         PASSWORD = credentials('dockerhub-password') 
-        KEY = credentials('ssh-key') 
         IP = credentials('server-ip') 
         WORKSPACE = credentials('workspace') 
+        KEY = credentials('ssh-key') 
+        REDIS_IP = credentials('redis-ip') 
+        REDIS_PORT = credentials('redis-port') 
     }
 
     stages {
@@ -19,25 +21,26 @@ pipeline {
                     ./DevOps/jenkins/build/build.sh
                 '''
             }
-
-            post {
-                success {
-                   archiveArtifacts artifacts: './Backend/target/*.jar', fingerprint: true
-                }
-            }
         }
 
-        stage('Test') {
-            steps {
-                sh './DevOps/jenkins/test/mvn.sh mvn test'
-            }
+        //     post {
+        //         success {
+        //            archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
+        //         }
+        //     }
+        // }
 
-            post {
-                always {
-                    junit './Backend/target/surefire-reports/*.xml'
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh './DevOps/jenkins/test/mvn.sh mvn test'
+        //     }
+
+        //     post {
+        //         always {
+        //             junit 'Backend/target/surefire-reports/*.xml'
+        //         }
+        //     }
+        // }
 
         stage('Push') {
             steps {

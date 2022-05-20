@@ -1,13 +1,17 @@
 #!/bin/bash
 
-echo "***** Pushing the image to Docker Hub ***"
+echo "*******************************************"
+echo "***** Pushing the image to Docker Hub *****"
+echo "*******************************************"
 
-IMAGE="backend"
+IMAGE1="backend"
+IMAGE2="server"
 
-docker login -u $ID -p $PASSWORD
+echo $PASSWORD | docker login -u $ID --password-stdin
 
-docker tag $IMAGE:$BUILD_TAG $ID/$IMAGE:$BUILD_TAG
+docker push $ID/$IMAGE1:$BUILD_TAG
+docker push $ID/$IMAGE2:$BUILD_TAG
 
-docker push $ID/$IMAGE:$BUILD_TAG
+echo "***** Deleting the image after pushing *****"
 
-sudo docker rmi -f $(docker images -q)
+docker rmi -f $ID/$IMAGE1:$BUILD_TAG $ID/$IMAGE2:$BUILD_TAG
