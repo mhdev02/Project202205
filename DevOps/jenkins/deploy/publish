@@ -10,7 +10,6 @@ export ID=$(sed -n '3p' /home/ec2-user/.cred)
 export PASSWORD=$(sed -n '4p' /home/ec2-user/.cred)
 
 sudo docker stop $(docker ps -a -q)
-sudo docker rm -f $(docker ps -aq)
 sudo docker rmi -f $(docker images -q)
 
 echo $PASSWORD | docker login -u $ID --password-stdin
