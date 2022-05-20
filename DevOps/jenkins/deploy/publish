@@ -15,7 +15,7 @@ export REDIS_PORT=$(sed -n '8p' /home/ec2-user/.cred)
 
 
 sudo docker stop $(docker ps -a -q)
-sudo docker rmi -f $(docker images -q)
+# sudo docker rmi -f $(docker images -q)
 
 echo $PASSWORD | docker login -u $ID --password-stdin
 
