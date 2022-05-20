@@ -147,3 +147,10 @@
     Nginx, Jenkins는 개별적으로 동작함을 확인
     시니어 혹은 사수가 있으면 좋겠다는 생각을 하면서 stackoverflow에 관련 질문을 올려놓음
     (https://stackoverflow.com/questions/72278474/nginx-on-ec2-host-jenkins-on-docker-container)
+
+
+    jenkins pipeline에서 배포할 때마다 Host key verification failed 에러가 발생
+
+        Jenkins 빌드 후 배포할 때 배포할 목적지 서버에 public ssh key를 처리하고 docker cp를 이용해서 
+        Jenkins container에 private ssh key를 복사 후 docker exec -it jenkins /bin/bash와 같은 방법으로
+        실행되고 있는 jenkins container에 접속해서 원격 서버에 ssh 연결이 되는지 확인하고 나서야 에러 해결함
