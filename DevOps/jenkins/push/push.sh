@@ -10,4 +10,4 @@ docker tag $IMAGE:$BUILD_TAG $ID/$IMAGE:$BUILD_TAG
 
 docker push $ID/$IMAGE:$BUILD_TAG
 
-sudo docker rmi -f $(docker images -q)
+sudo docker rmi -f $ID/$IMAGE:$BUILD_TAG
