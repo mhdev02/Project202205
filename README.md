@@ -53,7 +53,7 @@
           (free tier CPU, RAM 및 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
           jenkins job 한 개만 실행해도 CPU가 60% 이상으로 올라가고 멈춤. 1번 사진에서 확인)
 
-            설정해야 할 jenkins credentials(Secret text)
+            설정해야 할 jenkins credentials(Secret text, SSH Username with private key)
 
                 github id(with access token)
                 dockerhub-id 
@@ -67,7 +67,24 @@
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능과 로그인 시 JWT가 발행되도록 구현
+        - 회원 가입 기능
+
+            POST /users  Content-Type: application/json
+            {
+                "firstName": "",
+                "lastName": "",
+                "email": "@",
+                "password": "",
+                "items": []
+            }
+
+        - 로그인 시 JWT가 발행되도록 구현
+
+            POST /users/login  Content-Type: application/json
+            {
+                "email": "@",
+                "password": ""
+            }
         
 
     ScriptCrawler(Node.js, Redis)
