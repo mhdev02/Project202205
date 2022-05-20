@@ -58,9 +58,10 @@
                 github id(with access token)
                 dockerhub-id 
                 dockerhub-password
-                ssh-key  
-                server-ip
-                workspace
+                ssh-key: 배포 서버 ssh 접속을 위한 private key(jenkins container에 직접 복사해서 쓸 수도 있고
+                         credential 설정도 가능)
+                server-ip: 배포 서버 IP
+                workspace: ../jenkins_home/workspace/ITEM_NAME
         
 
     Backend(Spring Framework)
