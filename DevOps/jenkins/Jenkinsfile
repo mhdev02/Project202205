@@ -41,11 +41,11 @@ pipeline {
         //     }
         // }
 
-        // stage('Push') {
-        //     steps {
-        //         sh './DevOps/jenkins/push/push.sh'
-        //     }
-        // }
+        stage('Push') {
+            steps {
+                sh './DevOps/jenkins/push/push.sh'
+            }
+        }
 
         stage('Deploy') {
             steps {
