@@ -2,7 +2,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const Redis = require('ioredis');
 
-const redis1 = new Redis($REDIS_PORT, $REDIS_IP);
+const redis1 = new Redis(process.env.REDIS_PORT, process.env.REDIS_IP);
 const redis2 = redis1.duplicate();
 
 let fiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
