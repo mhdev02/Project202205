@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "***************************************************"
+echo "***** running the script on the remote server *****"
+echo "***************************************************"
+
 export IMAGE=$(sed -n '1p' /home/ec2-user/.cred)
 export TAG=$(sed -n '2p' /home/ec2-user/.cred)
 export ID=$(sed -n '3p' /home/ec2-user/.cred)
@@ -13,4 +17,4 @@ echo $PASSWORD | docker login -u $ID --password-stdin
 
 docker pull $ID/$IMAGE:$TAG
 
-docker run -d -t $IMAGE:$TAG --name backend -p 8080:8080
+docker run -d -t $IMAGE:$TAG -p 8080:8080 $ID/$IMAGE:TAG
