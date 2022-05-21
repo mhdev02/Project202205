@@ -2,6 +2,7 @@ exports.intersection = function (...args) {
 
   let result = [];
   let containers = [];
+  let returnArr = [];
 
   for (let i = 0; i < args.length; i++) {
     let container = {};
@@ -25,8 +26,13 @@ exports.intersection = function (...args) {
       }
     }
     if (!flag && (keys[i].length !== 0)) {
-      result.push([keys[i]] + ": " + Math.min.apply(null, value));
+      result.push([keys[i], Math.min.apply(null, value)]);
     }
   }
-  return result.flat();
+  result.sort((a, b) => b[1] - a[1]);
+  
+  for (let i = 0; i < result.length; i++) {
+    returnArr.push(`${result[i][0]}: ${result[i][1]}`);
+  }
+  return returnArr;
 };
