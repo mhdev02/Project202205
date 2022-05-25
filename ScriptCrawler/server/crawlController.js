@@ -6,7 +6,10 @@ const redis1 = new Redis(process.env.REDIS_PORT, process.env.REDIS_IP);
 const redis2 = redis1.duplicate();
 
 let fiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
-  "로그인", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판", "개인정보취급방침", ","];
+  "로그인", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판", "개인정보취급방침", ",", "if", "=", "==", "undefined", "{", "}", "Date()", "expires",
+  "var", "\\\"https", "\\*", "width", "height", "}else{", "function", "$.ajax", ">", "type", "error", "document.cookie", ';', "\\+", "\\)", 
+  "\\(", "false", "“", "else", "!", "''", "\\$", "\\/", "\/", "\\ ", ".attr", ".text", ".eq", ".addClass", ".on", "\\?", ".removeClass", "li", "none", "window", 
+  "display", ".ready", ".length", "document.location.href", "jQuery", "parseInt", ".toGMTString", ".get", "'", ">", "<"];
 
 let callCount = 0;
 
@@ -45,6 +48,7 @@ let crawl = async function (req, res) {
       res.status(201).send(values.work);
     })
   } catch (e) {
+    console.log(e);
     res.status(500).send("An error occured. The server requires to check a problem.")
   }
 }

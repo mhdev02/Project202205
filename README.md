@@ -48,9 +48,10 @@
 
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
-        - GitHub에서 해당 프로젝트 레포에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 배포가
-          이루어지도록 함
-          (free tier CPU, RAM 및 용량이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
+        - (CI/CD) GitHub에서 해당 프로젝트 레포에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 배포가
+          이루어지도록 함. 
+          레디스 서버와 worker container(공통 키워드 찾는 로직을 작동)가 동작하는 EC2 서버는 해당되지 않음 
+          (free tier CPU, RAM 및 저장공간이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
           jenkins job 한 개만 실행해도 CPU가 60% 이상으로 올라가고 멈춤. 1번 사진에서 확인)
 
             설정해야 할 jenkins credentials(Secret text, SSH Username with private key)
@@ -69,7 +70,7 @@
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능
+        - 회원 가입 기능(현재 H2 database 사용하고 있음)
 
             POST /users  Content-Type: application/json
             {
@@ -91,8 +92,9 @@
 
     ScriptCrawler(Node.js, Redis)
 
-        - 두 개의 사이트에서 공통으로 등장하는 키워드들을 "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성
-          (예를 들어, 신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
+        - 두 개의 사이트에서 공통으로 등장하는 키워드들을 등장 횟수에 따라 내림차순으로 정렬되도록 하였고,
+          "키워드: 등장 횟수"의 형식으로 응답하도록 코드 작성
+          (신문사 사이트들에서 공통으로 등장하는 단어는 주목할만한 단어라고 가정하는 아이디어에서 시작함)
         - 로그인 기능은 없는 대신에 rate limit 로직을 추가해서 15초 동안 최대 20회의 요청만 보낼 수 있도록 하여 
           서버 성능(t2.micro) 범위 내에서 작동되도록 시도
           (apache benchmark를 사용해서 확인해보니 동시 요청 21회부터 요청 실패가 나는 것을 확인하고 15초로 수정. 
@@ -176,3 +178,7 @@
         실행되고 있는 jenkins container에 접속해서 원격 서버에 ssh 연결이 되는지 확인하고 나서야 에러 해결함
         + SSH Username with private key 방식의 credential로 설정해도 작동함을 확인. 이때 username은 보통
         root 혹은 jenkins를 사용하는 것 같음. 둘 다 작동 확인
+
+    
+    ScriptCrawler에서 javascript 코드 등도 같이 결과값으로 나오는 경우가 있어서 매번 필터링 단어 리스트(filteringLists)
+    업데이트가 필요해보임
