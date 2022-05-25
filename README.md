@@ -180,8 +180,9 @@
         root 혹은 jenkins를 사용하는 것 같음. 둘 다 작동 확인
 
     
-    ScriptCrawler에서 javascript 코드 등도 같이 결과값으로 나오는 경우가 있어서 매번 필터링 단어 리스트(filteringLists)
+    ScriptCrawler에서 javascript 코드 등도 같이 결과값으로 나오는 경우가 있어서 매번 필터링 단어 리스트(filteringList)
     업데이트가 필요해보임
+
 
     Jenkins를 local machine에서 사용하고 메인 공유기 근처가 아닌 공유기 확장기를 통해 무선 인터넷을 사용하다 보니
     자동 빌드, 배포의 시간 편차가 클 때가 있음. 성능 좋은 remote build 서버를 사용해보고 싶음
