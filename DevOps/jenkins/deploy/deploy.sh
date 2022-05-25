@@ -16,3 +16,5 @@ echo $REDIS_PORT >> DevOps/jenkins/deploy/.cred
 scp -i $KEY DevOps/jenkins/deploy/.cred ec2-user@$IP:/home/ec2-user/.cred
 scp -i $KEY DevOps/jenkins/deploy/publish ec2-user@$IP:/home/ec2-user/publish
 ssh -i $KEY ec2-user@$IP "/home/ec2-user/publish" 
+
+echo " " > DevOps/jenkins/deploy/.cred
