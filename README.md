@@ -70,7 +70,7 @@
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능
+        - 회원 가입 기능(현재 H2 database 사용하고 있음)
 
             POST /users  Content-Type: application/json
             {
