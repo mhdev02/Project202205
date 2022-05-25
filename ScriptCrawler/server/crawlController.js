@@ -5,7 +5,7 @@ const Redis = require('ioredis');
 const redis1 = new Redis(process.env.REDIS_PORT, process.env.REDIS_IP);
 const redis2 = redis1.duplicate();
 
-let fiteringLists = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
+let fiteringList = ["\n", "\n\n", ":", "\t", "\t\t", "Copyright", "ⓒ", "All", "rights", "reserved.", "등록일자", "발행인", "편집인", "전체", "지면",
   "로그인", "보기", "보도자료", "온라인광고", "사이트맵", "디지털초판", "개인정보취급방침", ",", "if", "=", "==", "undefined", "{", "}", "Date()", "expires",
   "var", "\\\"https", "\\*", "width", "height", "}else{", "function", "$.ajax", ">", "type", "error", "document.cookie", ';', "\\+", "\\)", 
   "\\(", "false", "“", "else", "!", "''", "\\$", "\\/", "\/", "\\ ", ".attr", ".text", ".eq", ".addClass", ".on", "\\?", ".removeClass", "li", "none", "window", 
@@ -36,8 +36,8 @@ let crawl = async function (req, res) {
     let $1 = cheerio.load(html2);
     contents2 = $1('body').text();
 
-    for (let i = 0; i < fiteringLists.length; i++) {
-      var regex = new RegExp(fiteringLists[i], "gi")
+    for (let i = 0; i < fiteringList.length; i++) {
+      var regex = new RegExp(fiteringList[i], "gi")
       contents1 = contents1.replace(regex, ' ');
       contents2 = contents2.replace(regex, ' ');
     }
