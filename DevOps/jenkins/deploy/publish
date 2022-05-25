@@ -26,3 +26,10 @@ echo "running ${IMAGE1}..."
 docker run -d -p 8080:8080 $ID/$IMAGE1:$TAG
 echo "running ${IMAGE2}..."
 docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:$TAG
+
+echo " " > /home/ec2-user/.cred
+export ID=" "
+export PASSWORD=" "
+export IP=" "
+export REDIS_IP=" "
+export REDIS_PORT=" "
