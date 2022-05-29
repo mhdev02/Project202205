@@ -18,6 +18,3 @@ scp -i $KEY DevOps/jenkins/deploy/publish ec2-user@$IP:/home/ec2-user/publish
 ssh -i $KEY ec2-user@$IP "/home/ec2-user/publish" 
 
 echo " " > DevOps/jenkins/deploy/.cred
-
-docker rmi $ID/backend:$BUILD_TAG
-docker rmi $ID/server:$BUILD_TAG
