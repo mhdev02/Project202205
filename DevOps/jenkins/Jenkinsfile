@@ -23,18 +23,19 @@ pipeline {
             }
         }
 
-        //     post {
-        //         success {
-        //            archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh '''
+                    ./DevOps/jenkins/test/server.test.sh
+                '''
 
-        // stage('Test') {
-        //     steps {
-        //         sh './DevOps/jenkins/test/mvn.sh mvn test'
-        //     }
-
+                // sh '''
+                //     ./DevOps/jenkins/test/mvn.sh mvn test
+                //     ./DevOps/jenkins/test/server.test.sh
+                // '''
+            }
+        }
+        
         //     post {
         //         always {
         //             junit 'Backend/target/surefire-reports/*.xml'
