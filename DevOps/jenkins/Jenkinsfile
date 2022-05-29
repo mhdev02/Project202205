@@ -26,12 +26,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                cd ScriptCrawler/server && npm run test
+                    ./DevOps/jenkins/test/server.test.sh
                 '''
 
                 // sh '''
-                // ./DevOps/jenkins/test/mvn.sh mvn test
-                // cd ./ScriptCrawler/server && npm run test
+                //     ./DevOps/jenkins/test/mvn.sh mvn test
+                //     ./DevOps/jenkins/test/server.test.sh
                 // '''
             }
         }
