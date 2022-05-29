@@ -34,7 +34,8 @@ pipeline {
                 // cd ./ScriptCrawler/server && npm run test
                 // '''
             }
-
+        }
+        
         //     post {
         //         always {
         //             junit 'Backend/target/surefire-reports/*.xml'
