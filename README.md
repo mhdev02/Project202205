@@ -148,6 +148,8 @@
     TDD 방식으로 개발하면 Postman으로 매번 기능을 확인할 필요가 없게 됨을 알게 됨. 테스트 케이스가 일종의 기능 명세서 역할을 
     하고 어플리케이션의 품질을 높인다고 함
 
+        ScriptCrawler/server는 외부 Redis server와 통신해야 하므로 테스트 케이스 작성 시 mock 처리가 필요해 보임
+
 
     ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 
     작성하기로 하고 테스트는 5분 동안 최대 1회의 요청만 되도록 실시해보니 
