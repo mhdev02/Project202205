@@ -23,17 +23,17 @@ pipeline {
             }
         }
 
-        //     post {
-        //         success {
-        //            archiveArtifacts artifacts: 'Backend/target/*.jar', fingerprint: true
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh '''
+                cd ScriptCrawler/server && npm run test
+                '''
 
-        // stage('Test') {
-        //     steps {
-        //         sh './DevOps/jenkins/test/mvn.sh mvn test'
-        //     }
+                // sh '''
+                // ./DevOps/jenkins/test/mvn.sh mvn test
+                // cd ./ScriptCrawler/server && npm run test
+                // '''
+            }
 
         //     post {
         //         always {
