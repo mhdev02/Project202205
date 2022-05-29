@@ -25,6 +25,11 @@ let crawl = async function (req, res) {
   try {
     const url1 = req.body.url1;
     const url2 = req.body.url2;
+
+    if (!url1 || !url2) {
+      return res.status(400).send("You need to put two valid URLs - url1, url2");
+    }
+
     let contents1;
     let contents2;
 
