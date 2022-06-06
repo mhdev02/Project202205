@@ -10,7 +10,7 @@ import com.project.backend.io.entity.UserEntity;
 
 @Repository
 public interface ItemRepository extends CrudRepository<ItemEntity, Long> {
-	List<ItemEntity> findAllByUserPurchases(UserEntity userEntity);
+	List<ItemEntity> findAllBySeller(UserEntity userEntity);
 
 	ItemEntity findByItemId(String itemId);
 }

@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
 		if (userEntity == null)
 			return returnValue;
 
-		Iterable<ItemEntity> items = itemRepository.findAllByUserPurchases(userEntity);
+		Iterable<ItemEntity> items = itemRepository.findAllBySeller(userEntity);
 
 		for (ItemEntity itemEntity : items) {
 			returnValue.add(new ModelMapper().map(itemEntity, ItemDto.class));

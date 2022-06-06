@@ -37,9 +37,7 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false)
 	private String encryptedPassword;
 
-	@OneToMany(mappedBy = "userPurchases", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
-																								
-																								
+	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
 	private List<ItemEntity> items;
 
 	public long getId() {
