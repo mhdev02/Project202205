@@ -34,7 +34,7 @@ public class ItemEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "users_id")
-	private UserEntity userSelling;
+	private UserEntity seller;
 
 	public long getId() {
 		return id;
@@ -76,12 +76,12 @@ public class ItemEntity implements Serializable {
 		this.stock = stock;
 	}
 
-	public UserEntity getUserPurchases() {
-		return userPurchases;
+	public UserEntity getSeller() {
+		return seller;
 	}
 
-	public void setUserPurchases(UserEntity userPurchases) {
-		this.userPurchases = userPurchases;
+	public void setSeller(UserEntity seller) {
+		this.seller = seller;
 	}
 
 }
