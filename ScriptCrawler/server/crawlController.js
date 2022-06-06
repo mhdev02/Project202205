@@ -19,7 +19,7 @@ let crawl = async function (req, res) {
 
   callCount++;
   if (callCount >= 21) {
-    return res.status(429).send("You can send only 50 requests every 15 seconds");
+    return res.status(429).send("You can send only 20 requests every 15 seconds");
   };
 
   try {
