@@ -38,8 +38,6 @@ public class UserEntity implements Serializable {
 	private String encryptedPassword;
 
 	@OneToMany(mappedBy = "userPurchases", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
-																								
-																								
 	private List<ItemEntity> items;
 
 	public long getId() {
