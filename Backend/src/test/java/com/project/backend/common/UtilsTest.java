@@ -33,7 +33,7 @@ public class UtilsTest {
 		String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MUB0ZXN0LmNvbSIsImV4cCI6MTY1NDQ4ODU5NX0.RPdWgFlCdbCf-Ed8mPjM7g-qBhBpBBNtRTUL9B7viOwsU7fb3iFVs6bJvMKND4oNxKGg9iwIU05TnpdHadmygA";
 		boolean trueOrFalse = Utils.hasTokenExpired(token);
 
-		assertFalse(trueOrFalse);
+		assertTrue(trueOrFalse);
 	}
 	
 }
