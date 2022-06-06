@@ -150,8 +150,8 @@
 
         ScriptCrawler/server는 외부 Redis server와 통신해야 하므로 테스트 케이스 작성 시 mock 처리가 필요해 보임
 
-        Backend 디렉토리에서 mvn test 명령어 사용할 때 IllegalState Failed to load ApplicationContext
-        와 같은 에러가 발생하고 있음
+        Spring Tool Suite에서 JUnit 테스트에서는 통과하는 테스트 케이스들이 Backend 디렉토리에서 mvn test할 때 
+        IllegalState Failed to load ApplicationContext와 같은 에러가 발생하고 있음
 
 
     ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 
