@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -57,8 +59,6 @@ public class UserRepositoryTest {
 	final void testFindUserByEmail() {
 		String email = "1@gmail.com";
 		UserEntity user = userRepository.findByEmail(email);
-
-		System.out.println(user);
 
 		assertTrue(user.getEmail().equals(email));
 	}
