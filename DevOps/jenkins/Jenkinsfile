@@ -10,6 +10,10 @@ pipeline {
         KEY = credentials('ssh-key') 
         REDIS_IP = credentials('redis-ip') 
         REDIS_PORT = credentials('redis-port') 
+        DB_URL = credentials('DBUrl') 
+        DB_USER = credentials('DBUser') 
+        DB_PASSWORD = credentials('DBPassword') 
+        JWT_SECRET = credentials('JWTSecret') 
     }
 
     stages {
