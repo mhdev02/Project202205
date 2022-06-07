@@ -65,12 +65,16 @@
                 redis-ip: 레디스 서버가 동작하고 있는 서버 IP
                 redis-port: 레디스 서버 포트
                 workspace: ../jenkins_home/workspace/ITEM_NAME
-        
+                JWTSecret
+                DBUrl
+                DBUser
+                DBPassword 
+            
 
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능(현재 H2 database 사용하고 있음)
+        - 회원 가입 기능
 
             POST /users  Content-Type: application/json
             {
@@ -78,7 +82,16 @@
                 "lastName": "",
                 "email": "@",
                 "password": "",
-                "items": []
+                "items": [
+                    {
+                        "name": ,
+                        "price": ,
+                        "stock":
+                    },
+                    {
+
+                    }
+                ]
             }
 
         - 로그인 시 JWT가 발행되도록 구현
@@ -191,3 +204,4 @@
 
     Jenkins를 local machine에서 사용하고 메인 공유기 근처가 아닌 공유기 확장기를 통해 무선 인터넷을 사용하다 보니
     자동 배포의 시간 편차가 클 때가 있음. 성능 좋은 remote build 서버를 사용해보고 싶음
+    (공유기에서 고정 아이피 설정하면 어느 정도 해결됨)
