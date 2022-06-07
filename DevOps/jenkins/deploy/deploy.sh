@@ -12,6 +12,10 @@ echo $PASSWORD >> DevOps/jenkins/deploy/.cred
 echo $IP >> DevOps/jenkins/deploy/.cred
 echo $REDIS_IP >> DevOps/jenkins/deploy/.cred
 echo $REDIS_PORT >> DevOps/jenkins/deploy/.cred
+echo $DBUrl >> DevOps/jenkins/deploy/.cred
+echo $DBUser >> DevOps/jenkins/deploy/.cred
+echo $DBPassword >> DevOps/jenkins/deploy/.cred
+echo $JWTSecret >> DevOps/jenkins/deploy/.cred
 
 scp -i $KEY DevOps/jenkins/deploy/.cred ec2-user@$IP:/home/ec2-user/.cred
 scp -i $KEY DevOps/jenkins/deploy/publish ec2-user@$IP:/home/ec2-user/publish
