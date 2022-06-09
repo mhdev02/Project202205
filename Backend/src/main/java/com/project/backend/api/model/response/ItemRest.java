@@ -1,6 +1,8 @@
-package com.project.backend.ui.model.request;
+package com.project.backend.api.model.response;
 
-public class ItemRequestModel {
+import javax.persistence.Column;
+
+public class ItemRest {
 
 	private String itemId;
 	private String name;

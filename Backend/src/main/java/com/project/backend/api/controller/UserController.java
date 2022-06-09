@@ -1,4 +1,4 @@
-package com.project.backend.ui.controller;
+package com.project.backend.api.controller;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.backend.api.model.request.UserRequestModel;
+import com.project.backend.api.model.response.ItemRest;
+import com.project.backend.api.model.response.RequestStatus;
+import com.project.backend.api.model.response.StatusModel;
+import com.project.backend.api.model.response.UserRest;
 import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.service.ItemService;
 import com.project.backend.service.UserService;
-import com.project.backend.ui.model.request.UserRequestModel;
-import com.project.backend.ui.model.response.ItemRest;
-import com.project.backend.ui.model.response.RequestStatus;
-import com.project.backend.ui.model.response.StatusModel;
-import com.project.backend.ui.model.response.UserRest;
 
 @RestController
 @RequestMapping("/users")
@@ -50,7 +50,7 @@ public class UserController {
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public UserRest createUser(@RequestBody UserRequestModel userInfo) throws Exception {
-
+		
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(userInfo, UserDto.class);
 
