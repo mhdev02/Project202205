@@ -37,14 +37,18 @@
 	<div id="result"></div>
  
 </body>
-
-<script th:inline="javascript">
+ 
+<script>
 
 function sendData() {
 	
 	var url1 = $("#url1").val();	
 	var url2 = $("#url2").val();		
 	var param = {url1, url2};   
+	var SERVER_IP = "[[${SERVER_IP}]]";
+	var startIdx = SERVER_IP.indexOf(";") + 1;
+	var endIdx = SERVER_IP.indexOf("&", 5);
+	SERVER_IP = SERVER_IP.substring(startIdx, endIdx);
 
 	$.ajax({	
 		type:'POST',		
@@ -58,7 +62,7 @@ function sendData() {
 		$('#result').text(data);
 	});
 }
-
-</script>
+  
+</script>           
 
 </html>
