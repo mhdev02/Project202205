@@ -49,6 +49,7 @@ function sendData() {
 	var startIdx = SERVER_IP.indexOf(";") + 1;
 	var endIdx = SERVER_IP.indexOf("&", 5);
 	SERVER_IP = SERVER_IP.substring(startIdx, endIdx);
+	console.log(SERVER_IP);
 
 	$.ajax({	
 		type:'POST',		
