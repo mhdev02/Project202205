@@ -14,10 +14,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+import com.project.backend.api.controller.UserController;
+import com.project.backend.api.model.response.UserRest;
 import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.service.impl.UserServiceImpl;
-import com.project.backend.ui.model.response.UserRest;
 
 public class UserControllerTest {
 	
