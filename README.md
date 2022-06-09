@@ -165,6 +165,7 @@
 
         Spring Tool Suite에서 JUnit 테스트에서는 통과하는 테스트 케이스들이 Backend 디렉토리에서 mvn test할 때 
         IllegalState Failed to load ApplicationContext와 같은 에러가 발생하고 있음
+        maven:3.8.5-jdk-11으로 maven 이미지 변경 후 mvn test 작동 및 테스트 케이스 통과 확인함
 
 
     ScriptCrawler/server/crawlController.js에서 rate limit을 5분 동안 최대 20회의 요청으로 설정하는 코드를 
