@@ -27,7 +27,7 @@ docker pull $ID/$IMAGE1:$TAG
 docker pull $ID/$IMAGE2:$TAG
 
 echo "running ${IMAGE1}..."
-docker run -d -p 8080:8080 -e DB_URL=$DB_URL -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e JWT_SECRET=$JWT_SECRET -e SERVER_IP=$SERVER_IP $ID/$IMAGE1:$TAG
+docker run -d -p 8080:8080 -e DB_URL=$DB_URL -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD $ID/$IMAGE1:$TAG
 echo "running ${IMAGE2}..."
 docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:$TAG
 
