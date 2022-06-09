@@ -18,9 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.backend.AppContext;
+import com.project.backend.api.model.request.LoginRequestModel;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.service.UserService;
-import com.project.backend.ui.model.request.LoginRequestModel;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
