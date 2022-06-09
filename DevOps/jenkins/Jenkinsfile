@@ -34,12 +34,6 @@ pipeline {
                     ./DevOps/jenkins/test/server.test.sh
                 '''
             }
-        
-            // post {
-            //     always {
-            //         junit 'Backend/target/surefire-reports/*.xml'
-            //     }
-            // }
         }
 
         stage('Push') {
