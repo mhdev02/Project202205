@@ -89,8 +89,11 @@
                         "stock":
                     },
                     {
-
+                        "name": ,
+                        "price": ,
+                        "stock":
                     }
+                    ...
                 ]
             }
 
