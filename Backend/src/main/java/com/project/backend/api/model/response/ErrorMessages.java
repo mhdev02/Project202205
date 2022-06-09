@@ -1,4 +1,4 @@
-package com.project.backend.ui.model.response;
+package com.project.backend.api.model.response;
 
 public enum ErrorMessages {
 

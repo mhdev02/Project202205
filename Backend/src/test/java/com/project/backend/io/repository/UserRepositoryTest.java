@@ -69,7 +69,7 @@ public class UserRepositoryTest {
 		userEntity.setFirstName("firstName1");
 		userEntity.setLastName("lastName1");
 		userEntity.setUserId("1");
-		userEntity.setEncryptedPassword("password1");
+		userEntity.setPassword("password1");
 		userEntity.setEmail("1@gmail.com");
 
 		ItemEntity itemEntity = new ItemEntity();
@@ -96,7 +96,7 @@ public class UserRepositoryTest {
 		userEntity2.setFirstName("firstName2");
 		userEntity2.setLastName("lastName2");
 		userEntity2.setUserId("2");
-		userEntity2.setEncryptedPassword("password2");
+		userEntity2.setPassword("password2");
 		userEntity2.setEmail("2@gmail.com");
 
 		ItemEntity itemEntity3 = new ItemEntity();

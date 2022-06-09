@@ -1,4 +1,4 @@
-package com.project.backend.ui.model.request;
+package com.project.backend.api.model.request;
 
 import java.util.List;
 
