@@ -9,7 +9,7 @@
 
 ## 기술 스택과 개발 환경 
 
-    기술 스택: Java, Spring Framework, Javascript, Node.js, MySQL
+    기술 스택: Java, Spring Boot, Javascript, Node.js, MySQL
     개발 환경: Spring Tool Suite, Visual Studio Code
 
 
