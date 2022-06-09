@@ -35,9 +35,10 @@ public class UserEntity implements Serializable {
 	private String email;
 
 	@Column(nullable = false)
-	private String encryptedPassword;
+	private String password;
 
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+	@Column(nullable = true)
 	private List<ItemEntity> items;
 
 	public long getId() {
@@ -80,12 +81,12 @@ public class UserEntity implements Serializable {
 		this.email = email;
 	}
 
-	public String getEncryptedPassword() {
-		return encryptedPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<ItemEntity> getItems() {
