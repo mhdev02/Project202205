@@ -22,6 +22,20 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Override
+	public List<ItemDto> getAll() {
+		
+		List<ItemDto> returnValue = new ArrayList<>();
+		
+		List<ItemEntity> items = itemRepository.findAll();
+		
+		for (ItemEntity item: items) {
+			returnValue.add(new ModelMapper().map(items, ItemDto.class));
+		}
+		
+		return returnValue;
+	}
 
 	@Override
 	public List<ItemDto> getItems(String userId) {
