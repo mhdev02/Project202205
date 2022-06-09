@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project.backend.api.model.request.UserRequestModel;
 import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
@@ -26,6 +29,9 @@ public class HomeController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private Environment env;
 	
 	@GetMapping("/")
 	public String displayItems(Model model) {
@@ -43,7 +49,10 @@ public class HomeController {
 	}
 	
 	@GetMapping("/crawl")
-	public String crawl() {
+	public String crawl(Model model) {
+	
+		model.addAttribute("SERVER_IP", env.getProperty("SERVER_IP"));
+		
 		return "crawling";
 	}
 	
