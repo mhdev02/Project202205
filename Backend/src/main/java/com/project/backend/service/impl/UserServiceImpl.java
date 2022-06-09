@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
 import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
@@ -19,7 +20,6 @@ import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.UserService;
-import com.project.backend.ui.model.response.ErrorMessages;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,12 +38,14 @@ public class UserServiceImpl implements UserService {
 
 		if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
-
-		for (int i = 0; i < user.getItems().size(); i++) {
-			ItemDto item = user.getItems().get(i);
-			item.setUserPurchases(user);
-			item.setItemId(utils.generateId(30));
-			user.getItems().set(i, item);
+		
+		if (user.getItems() != null) {
+			for (int i = 0; i < user.getItems().size(); i++) {
+				ItemDto item = user.getItems().get(i);
+				item.setUserPurchases(user);
+				item.setItemId(utils.generateId(30));
+				user.getItems().set(i, item);
+			}
 		}
 
 		ModelMapper modelMapper = new ModelMapper();
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
 		String userId = utils.generateId(30);
 		userEntity.setUserId(userId);
-		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
 		UserEntity savedUserEntity = userRepository.save(userEntity);
 
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
 		if (userEntity == null)
 			throw new UsernameNotFoundException(email);
 
-		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), true, true, true, true,
+		return new User(userEntity.getEmail(), userEntity.getPassword(), true, true, true, true,
 				new ArrayList<>());
 	}
 
