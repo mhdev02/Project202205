@@ -9,7 +9,7 @@ export IMAGE2=$(sed -n '2p' /home/ec2-user/.cred)
 export TAG=$(sed -n '3p' /home/ec2-user/.cred)
 export ID=$(sed -n '4p' /home/ec2-user/.cred)
 export PASSWORD=$(sed -n '5p' /home/ec2-user/.cred)
-export IP=$(sed -n '6p' /home/ec2-user/.cred)
+export SERVER_IP=$(sed -n '6p' /home/ec2-user/.cred)
 export REDIS_IP=$(sed -n '7p' /home/ec2-user/.cred)
 export REDIS_PORT=$(sed -n '8p' /home/ec2-user/.cred)
 export DB_URL=$(sed -n '9p' /home/ec2-user/.cred)
@@ -27,14 +27,14 @@ docker pull $ID/$IMAGE1:$TAG
 docker pull $ID/$IMAGE2:$TAG
 
 echo "running ${IMAGE1}..."
-docker run -d -p 8080:8080 -e DB_URL=$DB_URL -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e JWT_SECRET=$JWT_SECRET -e SERVER_IP=$IP $ID/$IMAGE1:$TAG
+docker run -d -p 8080:8080 -e DB_URL=$DB_URL -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e JWT_SECRET=$JWT_SECRET -e SERVER_IP=$SERVER_IP $ID/$IMAGE1:$TAG
 echo "running ${IMAGE2}..."
 docker run -d -p 9000:9000 -e REDIS_IP=$REDIS_IP -e REDIS_PORT=$REDIS_PORT $ID/$IMAGE2:$TAG
 
 echo " " > /home/ec2-user/.cred
 export ID=" "
 export PASSWORD=" "
-export IP=" "
+export SERVER_IP=" "
 export REDIS_IP=" "
 export REDIS_PORT=" "
 export DB_URL=" "
