@@ -42,4 +42,9 @@ public class HomeController {
 		return "register";
 	}
 	
+	@GetMapping("/crawl")
+	public String crawl() {
+		return "crawling";
+	}
+	
 }
