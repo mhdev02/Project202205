@@ -5,7 +5,7 @@ pipeline {
     environment {
         ID = credentials('dockerhub-id')
         PASSWORD = credentials('dockerhub-password') 
-        IP = credentials('server-ip') 
+        SERVER_IP = credentials('server-ip') 
         WORKSPACE = credentials('workspace') 
         KEY = credentials('ssh-key') 
         REDIS_IP = credentials('redis-ip') 
@@ -34,12 +34,6 @@ pipeline {
                     ./DevOps/jenkins/test/server.test.sh
                 '''
             }
-        
-            // post {
-            //     always {
-            //         junit 'Backend/target/surefire-reports/*.xml'
-            //     }
-            // }
         }
 
         stage('Push') {
