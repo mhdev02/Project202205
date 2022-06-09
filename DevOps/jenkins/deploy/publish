@@ -20,6 +20,7 @@ export JWT_SECRET=$(sed -n '12p' /home/ec2-user/.cred)
 
 sudo docker stop $(docker ps -a -q)
 sudo docker rmi -f $(docker images -q)
+sudo docker rm `docker ps -a -q`
 
 echo $PASSWORD | docker login -u $ID --password-stdin
 
