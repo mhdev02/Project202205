@@ -31,6 +31,7 @@ pipeline {
             steps {
                 sh '''
                     ./DevOps/jenkins/test/server.test.sh
+                    ./DevOps/jenkins/test/mvn.sh mvn test
                 '''
                 // ./DevOps/jenkins/test/mvn.sh mvn test
             }
