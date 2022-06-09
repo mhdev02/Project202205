@@ -34,6 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
 				.antMatchers("/", "/register").permitAll()
 				.antMatchers("/favicon.ico").permitAll()
+				.antMatchers("/crawl").permitAll()
 				.antMatchers(SecurityConstants.H2_CONSOLE).permitAll().anyRequest().authenticated().and()
 				.addFilter(getAuthenticationFilter()).addFilter(new AuthorizationFilter(authenticationManager()))
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

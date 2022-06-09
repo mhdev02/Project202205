@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Sign Up</title>
+<title>Start Crawling!</title>
 <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -13,57 +13,49 @@
 	<div class="container-fluid" style="margin-top: 30px;">
 
 		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
-			<form autocomplete="off" class="form-signin" th:action="@{/}" role="form" th:onsubmit="sendData()">
-				<h3 class="form-signin-heading">Sign Up</h3>
+			<div>
+				<h3 class="form-signin-heading">Start Crawling</h3>
 				<div class="form-group">
 					<div class="">
-						<input type="text" id="firstName" placeholder="First Name" class="form-control" />
+						<input type="text" id="url1" placeholder="First URL" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="">
-						<input type="text" id="lastName" placeholder="Last Name" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="">
-						<input type="text" id="email" placeholder="Email" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="">
-						<input type="password" id="password" placeholder="Password" class="form-control" />
+						<input type="text" id="url2" placeholder="Second URL" class="form-control" />
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<div class="">
-						<button type="submit" class="btn btn-primary btn-block">Register</button>
+						<button type="button" th:onclick="sendData()" class="btn btn-primary btn-block">Start</button>
 					</div>
-				</div>
-			</form>
-		</div>
+				</div>  
+			<div/>
+		</div> 
 	</div>
+	<div id="result"></div>
+ 
 </body>
 
 <script th:inline="javascript">
 
 function sendData() {
 	
-	var firstName = $("#firstName").val();	
-	var lastName = $("#lastName").val();	
-	var email = $("#email").val();	
-	var password = $("#password").val();		
-	var param = {"firstName": firstName, "lastName": lastName, "email": email, "password": password}   
+	var url1 = $("#url1").val();	
+	var url2 = $("#url2").val();		
+	var param = {url1, url2};   
 
 	$.ajax({	
 		type:'POST',		
 		data: JSON.stringify(param),		
-		url:"/users",		
+		url:"http://localhost:9000/api/process/crawl",		
 		contentType: "application/json; charset=UTF-8",	
 		dataType:'json'	
-	}).done(function () {
-		return true;
+	}).done(function (data) {
+		document.getElementById("url1").value="";
+		document.getElementById("url2").value="";
+		$('#result').text(data);
 	});
 }
 
