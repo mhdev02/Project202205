@@ -82,19 +82,6 @@
                 "lastName": "",
                 "email": "@",
                 "password": "",
-                "items": [
-                    {
-                        "name": ,
-                        "price": ,
-                        "stock":
-                    },
-                    {
-                        "name": ,
-                        "price": ,
-                        "stock":
-                    }
-                    ...
-                ]
             }
 
         - 로그인 시 JWT가 발행되도록 구현
@@ -103,6 +90,14 @@
             {
                 "email": "@",
                 "password": ""
+            }
+
+        - 로그인한 상태에서 판매할 물품을 업로드하는 기능 
+            POST /items  Content-Type: application/json
+            {
+                "name": "",
+                "price": ,
+                "stock": ,
             }
         
 
@@ -210,5 +205,10 @@
     자동 배포의 시간 편차가 클 때가 있음. 성능 좋은 remote build 서버를 사용해보고 싶음
     (공유기에서 수동 IP 할당 설정하면 어느 정도 해결됨)
 
+
     회원가입 페이지에서 Form 전송 시 x-www-form-urlencoded 형식 관련 에러가 나서 ajax를 이용해서 contentType을
     application/json으로 명시해서 해결
+
+    
+    로그인하면 발행되는 JWT와 UserID를 Response Header에서 가져와서 쿠키에 저장하기로 하고 관련 로직을 html 페이지에 적용하고 
+    요청마다 Request Header에서 "Cookie"라는 키값으로부터 관련 데이터를 가져오도록 함 
