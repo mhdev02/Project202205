@@ -1,7 +1,6 @@
 package com.project.backend.service.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
-import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.UserEntity;
@@ -38,15 +36,6 @@ public class UserServiceImpl implements UserService {
 
 		if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
-		
-		if (user.getItems() != null) {
-			for (int i = 0; i < user.getItems().size(); i++) {
-				ItemDto item = user.getItems().get(i);
-				item.setUserPurchases(user);
-				item.setItemId(utils.generateId(30));
-				user.getItems().set(i, item);
-			}
-		}
 
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);

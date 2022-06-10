@@ -1,7 +1,5 @@
 package com.project.backend.api.model.response;
 
-import javax.persistence.Column;
-
 public class ItemRest {
 
 	private String itemId;

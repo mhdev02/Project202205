@@ -1,7 +1,5 @@
 package com.project.backend.service;
 
-import java.util.List;
-
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.project.backend.common.dto.UserDto;

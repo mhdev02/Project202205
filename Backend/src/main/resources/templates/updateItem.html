@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Sign Up</title>
+        <title>Sell your items</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
@@ -17,28 +17,26 @@
 		    <div class="row">
 		        <div class="col-md-6 offset-md-3">
 		            <div class="mb-3">
-		                <h3>Sign Up</h3>
+		                <h3>Register your items</h3>
 		            </div>
 		            <div class="shadow p-4">                  
 		                <div class="mb-3">
-		                    <label for="firstName">First Name</label>
-		                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+		                    <label for="name">Name</label>
+		                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
 		                </div>
+		
 		                <div class="mb-3">
-		                    <label for="lastName">Last Name</label>
-		                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+		                    <label for="price">Price</label>
+		                    <input type="text" class="form-control" name="price" id="price" placeholder="Price">
 		                </div>
+		                
 		                <div class="mb-3">
-		                    <label for="email">Email</label>
-		                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="password">Password</label>
-		                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+		                    <label for="quantity">Quantity</label>
+		                    <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
 		                </div>
 		
 		                <div class="mb-3 float-end">
-		                    <button type="submit" th:onclick="sendRequest()" class="btn btn-primary">Register</button>
+		                    <button type="submit" th:onclick="sendReq()" class="btn btn-primary">Register</button>
 		                </div>
 		
 		                <hr>
@@ -47,34 +45,29 @@
 		        </div>   
 		    </div>
 		</div>
-		<div id="warn" class="text-center text-dangertext-danger"></div>
-
 
         <!-- Bootstrap JS -->
         <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-</body>
+    </body>
+    
+ <script th:inline="javascript">
 
-<script th:inline="javascript">
-
-function sendRequest() {
-	
-	var firstName = $("#firstName").val();	
-	var lastName = $("#lastName").val();	
-	var email = $("#email").val();	
-	var password = $("#password").val();		
-	var param = {"firstName": firstName, "lastName": lastName, "email": email, "password": password}   
+function sendReq() {
+		
+	var name = $("#name").val();	
+	var price = $("#price").val();		
+	var quantity = $("#quantity").val();
+	var param = {name, price, "stock": quantity}   
 
 	$.ajax({	
 		type:'POST',		
 		data: JSON.stringify(param),		
-		url:"/users",		
-		contentType: "application/json; charset=UTF-8",	
-		dataType:'json'	
+		url:"/items",		
+		contentType: "application/json",	
 	}).done(function (output, status, xhr) {
 		window.location.href = '/';
-	});
+	})
 }
 
 </script>
-
 </html>

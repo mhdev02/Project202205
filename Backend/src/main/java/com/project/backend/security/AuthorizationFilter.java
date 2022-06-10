@@ -3,11 +3,8 @@ package com.project.backend.security;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +25,16 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
-		String header = req.getHeader(SecurityConstants.HEADER_STRING);
+		String header = req.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
+		
+		if (header != null) {
+			String[] cookiesArr = header.split(";");
+			for (int i = 0; i < cookiesArr.length; i++) {
+				if ("jwt".equals(cookiesArr[i].trim().split("=")[0])) {
+					header = cookiesArr[i].split("=")[1];
+				}
+			}
+		}
 
 		if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 			chain.doFilter(req, res);
@@ -42,7 +48,17 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
-		String token = request.getHeader(SecurityConstants.HEADER_STRING);
+		String token = request.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
+		
+		if (token != null) {
+			String[] cookiesArr = token.split(";");
+			for (int i = 0; i < cookiesArr.length; i++) {
+				if ("jwt".equals(cookiesArr[i].trim().split("=")[0])) {
+					token = cookiesArr[i].split("=")[1];
+				}
+			}
+		} 
+		
 
 		if (token != null) {
 
