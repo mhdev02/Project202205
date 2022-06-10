@@ -57,7 +57,7 @@ function sendReq() {
 	var name = $("#name").val();	
 	var price = $("#price").val();		
 	var quantity = $("#quantity").val();
-	var param = {name, price, quantity}   
+	var param = {name, price, "stock": quantity}   
 
 	$.ajax({	
 		type:'POST',		
