@@ -1,6 +1,7 @@
 package com.project.backend.io.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -95,6 +96,13 @@ public class UserEntity implements Serializable {
 
 	public void setItems(List<ItemEntity> items) {
 		this.items = items;
+	}
+	
+	public void addItem(ItemEntity item) {
+		if(items == null) {
+			items = new ArrayList<>();
+		}
+		items.add(item);
 	}
 
 }
