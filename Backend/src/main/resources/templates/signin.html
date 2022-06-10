@@ -1,0 +1,73 @@
+<!-- https://www.markuptag.com/login-form-design-html-in-bootstrap-5/ -->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sign In</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<link rel="icon" type="image/x-icon" th:href="@{favicon.ico}"/>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+        <style></style>
+    </head>
+    <body>
+		<div class="container mt-5">
+		    <div class="row">
+		        <div class="col-md-6 offset-md-3">
+		            <div class="mb-3">
+		                <h3>Login</h3>
+		            </div>
+		            <div class="shadow p-4">                  
+		                <div class="mb-3">
+		                    <label for="email">Email</label>
+		                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label for="password">Password</label>
+		                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+		                </div>
+		
+		                <div class="mb-3 float-end">
+		                    <button type="submit" th:onclick="sendReq()" class="btn btn-primary">Login</button>
+		                </div>
+		
+		                <hr>
+		                
+		            </div>
+		        </div>   
+		    </div>
+		</div>
+		<div id="warn" class="text-center text-dangertext-danger"></div>
+
+
+        <!-- Bootstrap JS -->
+        <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+    </body>
+    
+ <script th:inline="javascript">
+
+function sendReq() {
+		
+	var email = $("#email").val();	
+	var password = $("#password").val();		
+	var param = {email, password}   
+
+	$.ajax({	
+		type:'POST',		
+		data: JSON.stringify(param),		
+		url:"/users/login",		
+		contentType: "application/json",	
+	}).done(function (output, status, xhr) {
+		let jwt = xhr.getResponseHeader("Authorization");
+		document.cookie = `jwt=${jwt}`;
+		window.location.href = '/';
+	}).fail(function(data, status, xhr) {
+		$('#warn').text("Wrong Email or Password");
+	});
+}
+
+</script>
+</html>
