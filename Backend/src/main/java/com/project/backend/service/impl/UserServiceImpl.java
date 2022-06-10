@@ -38,15 +38,6 @@ public class UserServiceImpl implements UserService {
 
 		if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
-		
-		if (user.getItems() != null) {
-			for (int i = 0; i < user.getItems().size(); i++) {
-				ItemDto item = user.getItems().get(i);
-				item.setUserPurchases(user);
-				item.setItemId(utils.generateId(30));
-				user.getItems().set(i, item);
-			}
-		}
 
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);
