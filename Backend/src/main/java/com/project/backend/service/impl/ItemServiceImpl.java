@@ -3,27 +3,19 @@ package com.project.backend.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.project.backend.api.model.response.ItemRest;
 import com.project.backend.common.Utils;
 import com.project.backend.common.dto.ItemDto;
-import com.project.backend.common.dto.UserDto;
-import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.ItemRepository;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.ItemService;
-
-import org.modelmapper.TypeToken;
-import java.lang.reflect.Type;
 
 @Service
 public class ItemServiceImpl implements ItemService {

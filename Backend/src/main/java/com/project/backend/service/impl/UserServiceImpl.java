@@ -1,7 +1,6 @@
 package com.project.backend.service.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
-import com.project.backend.common.dto.ItemDto;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.UserEntity;
