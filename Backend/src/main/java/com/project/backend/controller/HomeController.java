@@ -2,12 +2,17 @@ package com.project.backend.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,8 +41,8 @@ public class HomeController {
 	@GetMapping("/")
 	public String displayItems(Model model) {
 		
-//		List<ItemDto> items = itemService.getAll();
-//		model.addAttribute("itemsList", items);
+		List<ItemDto> items = itemService.getAll();
+		model.addAttribute("itemsList", items);
 		
 		return "home";
 		
@@ -46,6 +51,16 @@ public class HomeController {
 	@GetMapping("/register")
 	public String signUp() {
 		return "register";
+	}
+	
+	@GetMapping("/signin")
+	public String signIn() {
+		return "signin";
+	}
+	
+	@GetMapping("/item")
+	public String updateItem(HttpServletRequest req) {
+		return "updateItem";
 	}
 	
 	@GetMapping("/crawl")
