@@ -29,8 +29,9 @@
                         </li>
                     </ul>
                     <div class="float-end" >
-                    	<button class="btn btn-light ms-3" th:onclick="window.location.href='/signin'">Login</button>
-                    	<button class="btn btn-light ms-3" th:onclick="window.location.href='/register'">Sign Up</button>
+                    	<button class="btn btn-light ms-3" id="signIn" th:onclick="window.location.href='/signin'">Sign In</button>
+                    	<button class="btn btn-light ms-3" id="signUp" th:onclick="window.location.href='/register'">Sign Up</button>
+                    	<button class="btn btn-light ms-3" id="logout" style="display:none" th:onclick="window.location.href='/logout'">Logout</button>
                     </div>
                 </div>
             </nav>
@@ -44,15 +45,15 @@
                     <h2 class="mb-3 text-danger">On sale</h2>
                 </div>
 				
-                <div class="col-md-6 col-lg-4">
-                    <div class="card my-3" th:each="item : ${itemsList}">
-                        <div class="card-thumbnail">
+                <div class="col-md-6 col-lg-4" th:each="item : ${itemsList}">
+                    <div class="card my-3">
+                   <!-- <div class="card-thumbnail">
                             <img src="#" class="img-fluid" alt="thumbnail">
-                        </div>
+                        </div>  -->
                         <div class="card-body">
-                            <h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
-                            <p class="card-text" th:text="${item.price}"></p>
-                           	<p class="card-text" th:text="${item.stock}"></p>
+                            <p>상품명: </p><h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
+                            <p>가격: </p><p class="card-text" th:text="${item.price}"></p>
+                           	<p>재고: </p><p class="card-text" th:text="${item.stock}"></p>
                         </div>
                     </div>
                 </div>
@@ -65,18 +66,23 @@
         <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
     </body>
 <script>
-    
-function sendReq() {
+let cookies = document.cookie;
+let jwt = "";
 
-	$.ajax({	
-		type:'GET',		
-		url:"/item",		
-		headers: 
-	}).done(function (output, status, xhr) {
-		let jwt = xhr.getResponseHeader("Authorization");
-		document.cookie = `jwt=${jwt}`;
-		window.location.href = '/';
-	})
+if (cookies != null) {
+	let cookiesArr = cookies.split(";");
+	for (let i = 0; i < cookiesArr.length; i++) {
+		if ("jwt" == (cookiesArr[i].trim().split("=")[0])) {
+			jwt = cookiesArr[i].split("=")[1];
+		}
+	}
 }
+
+if (jwt.length > 0) {
+	$("#signIn").attr("style", "display: none !important;");
+	$("#signUp").attr("style", "display: none !important;");
+	$("#logout").attr("style", "display: block !important;");
+}
+
 </script>
 </html>
