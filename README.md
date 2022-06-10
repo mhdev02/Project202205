@@ -210,5 +210,6 @@
     application/json으로 명시해서 해결
 
     
-    로그인하면 발행되는 JWT와 UserID를 Response Header에서 가져와서 쿠키에 저장하기로 하고 관련 로직을 html 페이지에 적용하고 
-    요청마다 Request Header에서 "Cookie"라는 키값으로부터 관련 데이터를 가져오도록 함 
+    로그인하면 발행되는 JWT와 UserID를 Response Header에서 가져와서 쿠키에 저장하기로 하고 관련 로직을 html 페이지에 
+    적용하고 요청마다 Request Header에서 "Cookie"라는 키값으로부터 관련 데이터를 가져오도록 하는 것을 
+    AuthorizationFilter.java 등에 적용
