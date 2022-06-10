@@ -3,16 +3,27 @@ package com.project.backend.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.project.backend.api.model.response.ItemRest;
+import com.project.backend.common.Utils;
 import com.project.backend.common.dto.ItemDto;
+import com.project.backend.common.dto.UserDto;
+import com.project.backend.exceptions.UserServiceException;
 import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.ItemRepository;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.ItemService;
+
+import org.modelmapper.TypeToken;
+import java.lang.reflect.Type;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -23,6 +34,46 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	ItemRepository itemRepository;
 	
+	@Autowired
+	Utils utils;
+	
+	@Override
+	public boolean createItem(ItemDto item, @RequestHeader HttpHeaders headers) {
+		
+		String userId = "";
+		
+		try {
+			String cookies = headers.getFirst("Cookie");
+			String[] cookiesArr = cookies.split(";");
+			for (int i = 0; i < cookiesArr.length; i++) {
+				if ("userId".equals(cookiesArr[i].trim().split("=")[0])) {
+					userId = cookiesArr[i].split("=")[1];
+				}
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+
+		UserEntity user = userRepository.findByUserId(userId);
+
+		ModelMapper modelMapper = new ModelMapper();
+		ItemEntity itemEntity = modelMapper.map(item, ItemEntity.class);
+
+		String itemId = utils.generateId(30);
+		itemEntity.setItemId(itemId);
+		itemEntity.setName(item.getName());
+		itemEntity.setPrice(item.getPrice());
+		itemEntity.setStock(item.getStock());
+
+		ItemEntity savedItemEntity = itemRepository.save(itemEntity);
+		
+		user.addItem(savedItemEntity);
+		
+		userRepository.save(user);
+
+		return true;
+	}
+	
 	@Override
 	public List<ItemDto> getAll() {
 		
@@ -31,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemEntity> items = itemRepository.findAll();
 		
 		for (ItemEntity item: items) {
-			returnValue.add(new ModelMapper().map(items, ItemDto.class));
+			returnValue.add(new ModelMapper().map(item, ItemDto.class));
 		}
 		
 		return returnValue;
