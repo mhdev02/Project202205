@@ -62,7 +62,9 @@ function sendReq() {
 		contentType: "application/json",	
 	}).done(function (output, status, xhr) {
 		let jwt = xhr.getResponseHeader("Authorization");
+		let userId = xhr.getResponseHeader("UserID");
 		document.cookie = `jwt=${jwt}`;
+		document.cookie = `userId=${userId}`;
 		window.location.href = '/';
 	}).fail(function(data, status, xhr) {
 		$('#warn').text("Wrong Email or Password");
