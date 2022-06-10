@@ -7,7 +7,7 @@ public class ItemDto {
 	private String name;
 	private Integer price;
 	private Integer stock;
-	private UserDto userPurchases;
+	private UserDto seller;
 
 	public long getId() {
 		return id;
@@ -49,11 +49,11 @@ public class ItemDto {
 		this.stock = stock;
 	}
 
-	public UserDto getUserPurchases() {
-		return userPurchases;
+	public UserDto getSeller() {
+		return seller;
 	}
 
-	public void setUserPurchases(UserDto userPurchases) {
-		this.userPurchases = userPurchases;
+	public void setSeller(UserDto seller) {
+		this.seller = seller;
 	}
 }
