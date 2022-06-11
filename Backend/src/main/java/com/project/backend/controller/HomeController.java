@@ -32,23 +32,23 @@ public class HomeController {
 		List<ItemDto> items = itemService.getAll();
 		model.addAttribute("itemsList", items);
 		
-		return "home";
+		return "home.html";
 		
 	}
 	
 	@GetMapping("/register")
 	public String signUp() {
-		return "register";
+		return "register.html";
 	}
 	
 	@GetMapping("/signin")
 	public String signIn() {
-		return "signin";
+		return "signin.html";
 	}
 	
 	@GetMapping("/item")
 	public String updateItem(HttpServletRequest req) {
-		return "updateItem";
+		return "updateItem.html";
 	}
 	
 	@GetMapping("/crawl")
@@ -56,7 +56,7 @@ public class HomeController {
 	
 		model.addAttribute("SERVER_IP", env.getProperty("SERVER_IP"));
 		
-		return "crawling";
+		return "crawling.html";
 	}
 	
 }
