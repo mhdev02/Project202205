@@ -46,7 +46,8 @@ public class UserControllerTest {
         userDto.setEmail("a@gmail.com");
         userDto.setUserId(userId);
         userDto.setItems(items);
-        userDto.setEncryptedPassword("AHjBmVgH2");
+        userDto.setPassword("AHjaBmVgH2");
+        userDto.setNickName("aa");
 		
 	}
 	
@@ -58,8 +59,10 @@ public class UserControllerTest {
 	    
 	    assertNotNull(userRest);
 	    assertEquals(userId, userRest.getUserId());
+	    assertEquals(userDto.getEmail(), userRest.getEmail());
 	    assertEquals(userDto.getFirstName(), userRest.getFirstName());
 	    assertEquals(userDto.getLastName(), userRest.getLastName());
+	    assertEquals(userDto.getNickName(), userRest.getNickName());
 	    assertTrue(userDto.getItems().size() == userRest.getItems().size());
 	}
 
