@@ -74,7 +74,7 @@
     Backend(Spring Framework)
 
         - 일반적인 프로그램 구현을 목적으로 함
-        - 회원 가입 기능(items 없이도 가입되도록 설정)
+        - 회원 가입 기능
 
             POST /users  Content-Type: application/json
             {
@@ -82,6 +82,7 @@
                 "lastName": "",
                 "email": "@",
                 "password": "",
+                "nickName": ""
             }
 
         - 로그인 시 JWT가 발행되도록 구현
@@ -96,8 +97,9 @@
             POST /items  Content-Type: application/json
             {
                 "name": "",
-                "price": ,
-                "stock": ,
+                "price": "",
+                "stock": "",
+                "description": ""
             }
         
 
