@@ -26,7 +26,7 @@
                             <a class="nav-link active" th:href="@{/}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/item}">Sell Your Items</a>
+                            <a class="nav-link" id="item" style="display:none" th:href="@{/item}">Sell Your Items</a>
                         </li>
                     </ul>
                     <div class="float-end" >
@@ -52,13 +52,15 @@
                             <img src="#" class="img-fluid" alt="thumbnail">
                         </div>  -->
                         <div class="card-body">
-                            <p>상품명: </p><h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
-                            <p>가격: </p><p class="card-text" th:text="${item.price}"></p>
-                           	<p>재고: </p><p class="card-text" th:text="${item.stock}"></p>
-                        </div>
+                            <h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
+                            <p class="card-text" th:text="|${item.price}원|"></p>
+                           	<p class="card-text" th:text="|${item.stock}개 남음|"></p>
+                			<p class="text-secondary" th:text="${item.description}"></p>
+                			<a th:href="@{/item/{id}(id=${item.seller.userId})}" class="btn btn-sm btn-danger float-right" th:text="|${item.seller.nickName}의 상품 더보기|"></a>
+                        </div> 
                     </div>
                 </div>
-
+ 
             </div>
         </div>
     </section>
@@ -69,8 +71,14 @@
 <script>
 let cookies = document.cookie;
 let jwt = "";
+let hasJwtExpired = "[[${hasJwtExpired}]]"
 
-if (cookies != null) {
+if (hasJwtExpired == 'true') {
+	document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	jwt = "";
+}
+
+if (cookies != null && hasJwtExpired == 'false') {
 	let cookiesArr = cookies.split(";");
 	for (let i = 0; i < cookiesArr.length; i++) {
 		if ("jwt" == (cookiesArr[i].trim().split("=")[0])) {
@@ -82,6 +90,7 @@ if (cookies != null) {
 if (jwt.length > 0) {
 	$("#signIn").attr("style", "display: none !important;");
 	$("#signUp").attr("style", "display: none !important;");
+	$("#item").attr("style", "display: block !important;");
 	$("#logout").attr("style", "display: block !important;");
 }
 
