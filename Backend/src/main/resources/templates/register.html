@@ -34,8 +34,16 @@
 		                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
 		                </div>
 		                <div class="mb-3">
+		                    <label for="nickName">Nickname</label>
+		                    <input type="email" class="form-control" name="nickName" id="nickName" placeholder="Nickname">
+		                </div>
+		                <div class="mb-3">
 		                    <label for="password">Password</label>
 		                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+		                </div>
+		                 <div class="mb-3">
+		                    <label for="password1">Confirm Your Password</label>
+		                    <input type="password" class="form-control" name="password1" id="password1" placeholder="Confirm Your Password">
 		                </div>
 		
 		                <div class="mb-3 float-end">
@@ -48,8 +56,7 @@
 		        </div>   
 		    </div>
 		</div>
-		<div id="warn" class="text-center text-dangertext-danger"></div>
-
+		<div id="warn" class="text-center text-danger"></div>
 
         <!-- Bootstrap JS -->
         <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
@@ -62,9 +69,15 @@ function sendRequest() {
 	var firstName = $("#firstName").val();	
 	var lastName = $("#lastName").val();	
 	var email = $("#email").val();	
-	var password = $("#password").val();		
-	var param = {"firstName": firstName, "lastName": lastName, "email": email, "password": password}   
-
+	var nickName = $("#nickName").val();	
+	var password = $("#password").val();	
+	var password1 = $("#password1").val();	
+	var param = {firstName, lastName, email, nickName, password}   
+	
+	if (password !== password1) {
+		$('#warn').text("Passwords are not matched");
+		return;
+	}
 	$.ajax({	
 		type:'POST',		
 		data: JSON.stringify(param),		
