@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
@@ -41,12 +43,19 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 			return;
 		}
 
-		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		chain.doFilter(req, res);
+		UsernamePasswordAuthenticationToken authentication;
+		try {
+			authentication = getAuthentication(req);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			chain.doFilter(req, res);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) throws Exception {
 
 		String token = request.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
 		
@@ -59,22 +68,26 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 			}
 		} 
 		
+		try {
+			if (token != null) {
 
-		if (token != null) {
+				token = token.replace(SecurityConstants.TOKEN_PREFIX, "");
 
-			token = token.replace(SecurityConstants.TOKEN_PREFIX, "");
+				String user = Jwts.parser().setSigningKey(SecurityConstants.getJWTSecret()).parseClaimsJws(token).getBody()
+						.getSubject();
 
-			String user = Jwts.parser().setSigningKey(SecurityConstants.getJWTSecret()).parseClaimsJws(token).getBody()
-					.getSubject();
+				if (user != null) {
+					return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+				}
 
-			if (user != null) {
-				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+				return null;
 			}
-
+			return null;
+		} catch (ExpiredJwtException e) {
+			// System.out.println("Expired JWT");
 			return null;
 		}
 
-		return null;
 	}
 
 }
