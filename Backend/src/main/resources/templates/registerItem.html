@@ -35,6 +35,10 @@
 		                    <label for="quantity">Quantity</label>
 		                    <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
 		                </div>
+		                <div class="mb-3">
+		                    <label for="description">Description</label>
+		                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+		                </div>
 		
 		                <div class="mb-3 float-end">
 		                    <button type="submit" th:onclick="sendReq()" class="btn btn-primary">Register</button>
@@ -46,6 +50,7 @@
 		        </div>   
 		    </div>
 		</div>
+		<div id="warn" class="text-center text-danger"></div>
 
         <!-- Bootstrap JS -->
         <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
@@ -58,8 +63,18 @@ function sendReq() {
 	var name = $("#name").val();	
 	var price = $("#price").val();		
 	var quantity = $("#quantity").val();
-	var param = {name, price, "stock": quantity}   
-
+	var description = $("#description").val();
+	var param = {name, price, "stock": quantity, description}  
+	
+	if (isNaN(parseInt(price))) {
+		$('#warn').text("Price should be number");
+		return;
+	}
+	if (isNaN(parseInt(quantity))) {
+		$('#warn').text("Quantity should be number");
+		return;
+	}
+			
 	$.ajax({	
 		type:'POST',		
 		data: JSON.stringify(param),		
@@ -67,6 +82,7 @@ function sendReq() {
 		contentType: "application/json",	
 	}).done(function (output, status, xhr) {
 		window.location.href = '/';
+
 	})
 }
 
