@@ -56,7 +56,6 @@
                             <p class="card-text" th:text="|${item.price}원|"></p>
                            	<p class="card-text" th:text="|${item.stock}개 남음|"></p>
                 			<p class="text-secondary" th:text="${item.description}"></p>
-                			<a th:href="@{/item/{id}(id=${item.seller.userId})}" class="btn btn-sm btn-danger float-right" th:text="|${item.seller.nickName}의 상품 더보기|"></a>
                         </div> 
                     </div>
                 </div>
@@ -71,14 +70,8 @@
 <script>
 let cookies = document.cookie;
 let jwt = "";
-let hasJwtExpired = "[[${hasJwtExpired}]]"
 
-if (hasJwtExpired == 'true') {
-	document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	jwt = "";
-}
-
-if (cookies != null && hasJwtExpired == 'false') {
+if (cookies != null) {
 	let cookiesArr = cookies.split(";");
 	for (let i = 0; i < cookiesArr.length; i++) {
 		if ("jwt" == (cookiesArr[i].trim().split("=")[0])) {

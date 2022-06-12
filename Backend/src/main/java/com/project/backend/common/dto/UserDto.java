@@ -13,7 +13,8 @@ public class UserDto implements Serializable {
 	private String lastName;
 	private String email;
 	private String password;
-	private String encryptedPassword;
+	private String nickName;
+
 	private List<ItemDto> items;
 
 	public long getId() {
@@ -64,19 +65,19 @@ public class UserDto implements Serializable {
 		this.password = password;
 	}
 
-	public String getEncryptedPassword() {
-		return encryptedPassword;
-	}
-
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
-	}
-
 	public List<ItemDto> getItems() {
 		return items;
 	}
 
 	public void setItems(List<ItemDto> items) {
 		this.items = items;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

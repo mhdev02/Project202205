@@ -8,6 +8,8 @@ public class UserRest {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String nickName;
+
 	private List<ItemRest> items;
 
 	public String getUserId() {
@@ -48,6 +50,14 @@ public class UserRest {
 
 	public void setItems(List<ItemRest> items) {
 		this.items = items;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

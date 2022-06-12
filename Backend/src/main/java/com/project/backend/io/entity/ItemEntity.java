@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "items")
@@ -20,17 +21,24 @@ public class ItemEntity implements Serializable {
 	@GeneratedValue
 	private long id;
 
-	@Column(length = 30, nullable = false)
+	@NotBlank
+	@Column(length = 30)
 	private String itemId;
-
-	@Column(length = 20, nullable = false)
+	
+	@NotBlank
+	@Column(length = 20)
 	private String name;
 
-	@Column(nullable = false)
-	private Integer price;
+	@NotBlank
+	@Column()
+	private String price;
 
-	@Column(nullable = false)
-	private Integer stock;
+	@NotBlank
+	@Column()
+	private String stock;
+	
+	@Column(length = 1000)
+	private String description;
 
 	@ManyToOne
 	@JoinColumn(name = "users_id")
@@ -60,19 +68,19 @@ public class ItemEntity implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public Integer getStock() {
+	public String getStock() {
 		return stock;
 	}
 
-	public void setStock(Integer stock) {
+	public void setStock(String stock) {
 		this.stock = stock;
 	}
 
@@ -82,6 +90,14 @@ public class ItemEntity implements Serializable {
 
 	public void setSeller(UserEntity seller) {
 		this.seller = seller;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

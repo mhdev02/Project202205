@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -23,23 +25,33 @@ public class UserEntity implements Serializable {
 	@GeneratedValue
 	private long id;
 
-	@Column(nullable = false)
+	@NotBlank
+	@Column()
 	private String userId;
 
-	@Column(nullable = false, length = 20)
+	@NotBlank
+	@Column(length = 20)
 	private String firstName;
 
-	@Column(nullable = false, length = 20)
+	@NotBlank
+	@Column(length = 20)
 	private String lastName;
-
-	@Column(nullable = false, length = 100, unique = true)
+	
+	@Email
+	@NotBlank
+	@Column(length = 100, unique = true)
 	private String email;
 
-	@Column(nullable = false)
+	@NotBlank
+	@Column()
 	private String password;
+	
+	@NotBlank
+	@Column()
+	private String nickName;
 
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
-	@Column(nullable = true)
+	@Column()
 	private List<ItemEntity> items;
 
 	public long getId() {
@@ -103,6 +115,14 @@ public class UserEntity implements Serializable {
 			items = new ArrayList<>();
 		}
 		items.add(item);
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

@@ -7,6 +7,7 @@ public class UserRequestModel {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String nickName;
 	private String password;
 	private List<ItemRequestModel> items;
 
@@ -48,6 +49,14 @@ public class UserRequestModel {
 
 	public void setItems(List<ItemRequestModel> items) {
 		this.items = items;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

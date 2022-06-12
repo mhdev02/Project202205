@@ -45,11 +45,13 @@ public class UserRepositoryTest {
 		ItemEntity secondItem = userItems.get(1);
 
 		assertEquals(firstItem.getName(), "Iphone 5");
-		assertEquals(firstItem.getPrice().intValue(), 50000);
-		assertEquals(firstItem.getStock().intValue(), 1);
+		assertEquals(firstItem.getPrice(), "50000");
+		assertEquals(firstItem.getStock(), "1");
+		assertEquals(firstItem.getDescription(), "");
 		assertEquals(secondItem.getName(), "Iphone 6");
-		assertEquals(secondItem.getPrice().intValue(), 60000);
-		assertEquals(secondItem.getStock().intValue(), 1);
+		assertEquals(secondItem.getPrice(), "60000");
+		assertEquals(secondItem.getStock(), "1");
+		assertEquals(secondItem.getDescription(), "");
 
 	}
 
@@ -69,18 +71,21 @@ public class UserRepositoryTest {
 		userEntity.setUserId("1");
 		userEntity.setPassword("password1");
 		userEntity.setEmail("1@gmail.com");
+		userEntity.setNickName("aa");
 
 		ItemEntity itemEntity = new ItemEntity();
 		itemEntity.setItemId("1");
 		itemEntity.setName("Iphone 5");
-		itemEntity.setPrice(50000);
-		itemEntity.setStock(1);
+		itemEntity.setPrice("50000");
+		itemEntity.setStock("1");
+		itemEntity.setDescription("");
 
 		ItemEntity itemEntity2 = new ItemEntity();
 		itemEntity2.setItemId("2");
 		itemEntity2.setName("Iphone 6");
-		itemEntity2.setPrice(60000);
-		itemEntity2.setStock(1);
+		itemEntity2.setPrice("60000");
+		itemEntity2.setStock("1");
+		itemEntity2.setDescription("");
 
 		List<ItemEntity> items = new ArrayList<>();
 		items.add(itemEntity);
@@ -96,12 +101,14 @@ public class UserRepositoryTest {
 		userEntity2.setUserId("2");
 		userEntity2.setPassword("password2");
 		userEntity2.setEmail("2@gmail.com");
+		userEntity2.setNickName("bb");
 
 		ItemEntity itemEntity3 = new ItemEntity();
 		itemEntity3.setItemId("3");
 		itemEntity3.setName("Macbook 2017");
-		itemEntity3.setPrice(1000000);
-		itemEntity3.setStock(1);
+		itemEntity3.setPrice("1000000");
+		itemEntity3.setStock("1");
+		itemEntity3.setDescription("");
 
 		List<ItemEntity> items2 = new ArrayList<>();
 		items2.add(itemEntity3);

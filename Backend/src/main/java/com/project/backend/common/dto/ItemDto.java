@@ -5,8 +5,9 @@ public class ItemDto {
 	private long id;
 	private String itemId;
 	private String name;
-	private Integer price;
-	private Integer stock;
+	private String price;
+	private String stock;
+	private String description;
 	private UserDto seller;
 
 	public long getId() {
@@ -33,19 +34,19 @@ public class ItemDto {
 		this.name = name;
 	}
 
-	public Integer getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public Integer getStock() {
+	public String getStock() {
 		return stock;
 	}
 
-	public void setStock(Integer stock) {
+	public void setStock(String stock) {
 		this.stock = stock;
 	}
 
@@ -55,5 +56,13 @@ public class ItemDto {
 
 	public void setSeller(UserDto seller) {
 		this.seller = seller;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
