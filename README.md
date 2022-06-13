@@ -49,7 +49,9 @@
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
         - (CI/CD) GitHub에서 해당 프로젝트 레포에서 PR이 발생하면 jenkins 파이프라인이 작동하고 빌드, 테스트, 배포가
-          이루어지도록 함. 
+          이루어지도록 함.(feature로 시작하는 브랜치에서 PR이 발생할 때 해당 브랜치의 코드로 jenkins 빌드가 시작되므로 
+          사실 테스트 서버에 배포한다고 생각하고 main 브랜치에 merge될 때 배포 되는 서버가 있다면 그것이 
+          production 배포 서버라고 생각함)
           레디스 서버와 worker container(공통 키워드 찾는 로직을 작동)가 동작하는 EC2 서버는 해당되지 않음 
           (free tier CPU, RAM 및 저장공간이 부족해서 jenkins는 EC2에서 local machine - laptop에서 실행하게 됨
           jenkins job 한 개만 실행해도 CPU가 60% 이상으로 올라가고 멈춤. 1번 사진에서 확인)
