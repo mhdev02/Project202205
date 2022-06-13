@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="item" style="display:none" th:href="@{/item}">Sell Your Items</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="youritem" style="display:none" th:href="@{/seller}">Your Items</a>
+                        </li>
                     </ul>
                     <div class="float-end" >
                     	<button class="btn btn-light ms-3" id="signIn" th:onclick="window.location.href='/signin'">Sign In</button>
@@ -43,7 +46,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="mb-3 text-danger">On sale</h2>
+                    <h2 class="mb-3 text-danger" th:text="|${user.nickName}의 상품 더보기|"></h2>
                 </div>
 				
                 <div class="col-md-6 col-lg-4" th:each="item : ${itemsList}">
@@ -84,6 +87,7 @@ if (jwt.length > 0) {
 	$("#signIn").attr("style", "display: none !important;");
 	$("#signUp").attr("style", "display: none !important;");
 	$("#item").attr("style", "display: block !important;");
+	$("#youritem").attr("style", "display: block !important;");
 	$("#logout").attr("style", "display: block !important;");
 }
 

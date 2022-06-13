@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Sell your items</title>
+        <title>Update your items</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,8 +13,9 @@
         <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
         <style></style>
     </head>
+    <body>
     
-            <header>
+         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container">
                     <ul class="navbar-nav mx-auto">
@@ -36,36 +37,34 @@
                 </div>
             </nav>
         </header>
-        
-    <body>
 		<div class="container mt-5">
 		    <div class="row">
 		        <div class="col-md-6 offset-md-3">
 		            <div class="mb-3">
-		                <h3>Sell your items</h3>
+		                <h3>Update your items</h3>
 		            </div>
 		            <div class="shadow p-4">                  
 		                <div class="mb-3">
 		                    <label for="name">Name</label>
-		                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+		                    <input type="text" class="form-control" name="name" id="name" th:value="${item.Name}">
 		                </div>
 		
 		                <div class="mb-3">
 		                    <label for="price">Price</label>
-		                    <input type="text" class="form-control" name="price" id="price" placeholder="Price">
+		                    <input type="text" class="form-control" name="price" id="price" th:value="${item.Price}">
 		                </div>
 		                
 		                <div class="mb-3">
 		                    <label for="quantity">Quantity</label>
-		                    <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
+		                    <input type="text" class="form-control" name="quantity" id="quantity" th:value="${item.Stock}">
 		                </div>
 		                <div class="mb-3">
 		                    <label for="description">Description</label>
-		                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+		                    <input type="text" class="form-control" name="description" id="description" th:value="${item.Description}">
 		                </div>
 		
 		                <div class="mb-3 float-end">
-		                    <button type="submit" th:onclick="sendReq()" class="btn btn-primary">Register</button>
+		                    <button type="submit" th:onclick="updateReq()" class="btn btn-primary">Update</button>
 		                </div>
 		
 		                <hr>
@@ -102,13 +101,16 @@ if (jwt.length > 0) {
 	$("#youritem").attr("style", "display: block !important;");
 }
 
-function sendReq() {
+function updateReq() {
 		
 	var name = $("#name").val();	
 	var price = $("#price").val();		
 	var quantity = $("#quantity").val();
 	var description = $("#description").val();
 	var param = {name, price, "stock": quantity, description}  
+	const urlParams = new URLSearchParams(window.location.search);
+	let userId = urlParams.get('userId');
+	let itemId = urlParams.get('id');
 	
 	if (isNaN(parseInt(price))) {
 		$('#warn').text("Price should be number");
@@ -120,13 +122,12 @@ function sendReq() {
 	}
 			
 	$.ajax({	
-		type:'POST',		
+		type:'PUT',		
 		data: JSON.stringify(param),		
-		url:"/items",		
+		url:`/items/${itemId}`,		
 		contentType: "application/json",	
 	}).done(function (output, status, xhr) {
-		window.location.href = '/';
-
+		window.location.href = `/seller`;
 	})
 }
 
