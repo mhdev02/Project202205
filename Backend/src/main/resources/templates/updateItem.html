@@ -1,135 +1,132 @@
 <!-- https://www.markuptag.com/login-form-design-html-in-bootstrap-5/ -->
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Update your items</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="icon" type="image/x-icon" th:href="@{favicon.ico}"/>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
-        <style></style>
-    </head>
-    <body>
-    
-         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="item" style="display:none" th:href="@{/item}">Sell Your Items</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="youritem" style="display:none" th:href="@{/seller}">Your Items</a>
-                        </li>
-                    </ul>
-                    <div class="float-end" >
-                    	<button class="btn btn-light ms-3" id="signIn" th:onclick="window.location.href='/signin'">Sign In</button>
-                    	<button class="btn btn-light ms-3" id="signUp" th:onclick="window.location.href='/register'">Sign Up</button>
-                    	<button class="btn btn-light ms-3" id="logout" style="display:none" th:onclick="window.location.href='/logout'">Logout</button>
-                    </div>
-                </div>
-            </nav>
-        </header>
-		<div class="container mt-5">
-		    <div class="row">
-		        <div class="col-md-6 offset-md-3">
-		            <div class="mb-3">
-		                <h3>Update your items</h3>
-		            </div>
-		            <div class="shadow p-4">                  
-		                <div class="mb-3">
-		                    <label for="name">Name</label>
-		                    <input type="text" class="form-control" name="name" id="name" th:value="${item.Name}">
-		                </div>
-		
-		                <div class="mb-3">
-		                    <label for="price">Price</label>
-		                    <input type="text" class="form-control" name="price" id="price" th:value="${item.Price}">
-		                </div>
-		                
-		                <div class="mb-3">
-		                    <label for="quantity">Quantity</label>
-		                    <input type="text" class="form-control" name="quantity" id="quantity" th:value="${item.Stock}">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="description">Description</label>
-		                    <input type="text" class="form-control" name="description" id="description" th:value="${item.Description}">
-		                </div>
-		
-		                <div class="mb-3 float-end">
-		                    <button type="submit" th:onclick="updateReq()" class="btn btn-primary">Update</button>
-		                </div>
-		
-		                <hr>
-		                
-		            </div>
-		        </div>   
-		    </div>
+
+<head>
+	<title>Update your items</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="icon" type="image/x-icon" th:href="@{favicon.ico}" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+	<style></style>
+</head>
+
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="item" style="display:none" th:href="@{/item/register}">Sell Your
+							Items</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" id="youritem" style="display:none" th:href="@{/seller}">Your
+							Items</a>
+					</li>
+				</ul>
+				<div class="float-end">
+					<button class="btn btn-light ms-3" id="signIn" style="display:none"
+						th:onclick="window.location.href='/signin'">Sign
+						In</button>
+					<button class="btn btn-light ms-3" id="signUp" style="display:none"
+						th:onclick="window.location.href='/register'">Sign
+						Up</button>
+					<button class="btn btn-light ms-3" id="logout" style="display:none"
+						th:onclick="window.location.href='/logout'">Logout</button>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="mb-3">
+					<h3>Update your items</h3>
+				</div>
+				<div class="shadow p-4">
+					<div class="mb-3">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" name="name" id="name" th:value="${item.Name}">
+					</div>
+
+					<div class="mb-3">
+						<label for="price">Price</label>
+						<input type="text" class="form-control" name="price" id="price" th:value="${item.Price}">
+					</div>
+
+					<div class="mb-3">
+						<label for="quantity">Quantity</label>
+						<input type="text" class="form-control" name="quantity" id="quantity" th:value="${item.Stock}">
+					</div>
+					<div class="mb-3">
+						<label for="description">Description</label>
+						<input type="text" class="form-control" name="description" id="description"
+							th:value="${item.Description}">
+					</div>
+
+					<div class="mb-3 float-end">
+						<button type="submit" th:onclick="updateReq()" class="btn btn-primary">Update</button>
+					</div>
+
+					<hr>
+
+				</div>
+			</div>
 		</div>
-		<div id="warn" class="text-center text-danger"></div>
+	</div>
+	<div id="warn" class="text-center text-danger"></div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-    </body>
-    
- <script th:inline="javascript">
- 
-let cookies = document.cookie;
-let jwt = "";
+	<!-- Bootstrap JS -->
+	<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
 
-if (cookies != null) {
-	let cookiesArr = cookies.split(";");
-	for (let i = 0; i < cookiesArr.length; i++) {
-		if ("jwt" == (cookiesArr[i].trim().split("=")[0])) {
-			jwt = cookiesArr[i].split("=")[1];
+<script>
+	let token = "[[${token}]]";
+	let hasJwtExpired = "[[${hasJwtExpired}]]";
+	let userId = "[[${userId}]]";
+</script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script>
+
+	function updateReq() {
+
+		var name = $("#name").val();
+		var price = $("#price").val();
+		var quantity = $("#quantity").val();
+		var description = $("#description").val();
+		var param = {name, price, "stock": quantity, description}
+		const urlParams = new URLSearchParams(window.location.search);
+		let itemId = urlParams.get('itemId');
+
+		if (isNaN(parseInt(price))) {
+			$('#warn').text("Price should be number");
+			return;
 		}
-	}
-}
+		if (isNaN(parseInt(quantity))) {
+			$('#warn').text("Quantity should be number");
+			return;
+		}
 
-if (jwt.length > 0) {
-	$("#signIn").attr("style", "display: none !important;");
-	$("#signUp").attr("style", "display: none !important;");
-	$("#item").attr("style", "display: block !important;");
-	$("#logout").attr("style", "display: block !important;");
-	$("#youritem").attr("style", "display: block !important;");
-}
-
-function updateReq() {
-		
-	var name = $("#name").val();	
-	var price = $("#price").val();		
-	var quantity = $("#quantity").val();
-	var description = $("#description").val();
-	var param = {name, price, "stock": quantity, description}  
-	const urlParams = new URLSearchParams(window.location.search);
-	let userId = urlParams.get('userId');
-	let itemId = urlParams.get('id');
-	
-	if (isNaN(parseInt(price))) {
-		$('#warn').text("Price should be number");
-		return;
+		$.ajax({
+			type: 'PUT',
+			data: JSON.stringify(param),
+			url: `/items/${itemId}`,
+			contentType: "application/json",
+		}).done(function (output, status, xhr) {
+			window.location.href = `/seller`;
+		})
 	}
-	if (isNaN(parseInt(quantity))) {
-		$('#warn').text("Quantity should be number");
-		return;
-	}
-			
-	$.ajax({	
-		type:'PUT',		
-		data: JSON.stringify(param),		
-		url:`/items/${itemId}`,		
-		contentType: "application/json",	
-	}).done(function (output, status, xhr) {
-		window.location.href = `/seller`;
-	})
-}
 
 </script>
+
 </html>
