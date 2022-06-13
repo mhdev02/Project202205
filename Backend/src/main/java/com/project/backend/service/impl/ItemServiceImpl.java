@@ -7,10 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
 import com.project.backend.common.dto.ItemDto;
+import com.project.backend.exceptions.ItemServiceException;
 import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
 import com.project.backend.io.repository.ItemRepository;
@@ -114,6 +117,45 @@ public class ItemServiceImpl implements ItemService {
 		}
 
 		return returnValue;
+	}
+	
+	@Override
+	public ItemDto updateItem(String itemId, ItemDto item) {
+
+		ItemEntity itemEntity = itemRepository.findByItemId(itemId);
+
+		if (itemEntity == null)
+			throw new ItemServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+		itemEntity.setName(item.getName());
+		itemEntity.setPrice(item.getPrice());
+		itemEntity.setStock(item.getStock());
+		itemEntity.setDescription(item.getDescription());
+
+		ItemEntity updatedItemEntity = itemRepository.save(itemEntity);
+
+		ItemDto returnValue = new ModelMapper().map(updatedItemEntity, ItemDto.class);
+
+		return returnValue;
+
+	}
+
+	@Transactional
+	@Override
+	public void deleteItem(String itemId) {
+
+		ItemEntity itemEntity = itemRepository.findByItemId(itemId);
+
+		if (itemEntity == null)
+			throw new ItemServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		
+		UserEntity user = userRepository.findByUserId(itemEntity.getSeller().getUserId());
+
+		// https://stackoverflow.com/questions/22688402/delete-not-working-with-jparepository
+		user.getItems().remove(itemEntity);
+		userRepository.save(user);
+		itemRepository.delete(itemEntity);
+
 	}
 
 }
