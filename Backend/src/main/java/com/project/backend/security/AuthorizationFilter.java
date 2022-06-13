@@ -14,11 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
-
+	
 	public AuthorizationFilter(AuthenticationManager authManager) {
 		super(authManager);
 	}
@@ -27,18 +26,19 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
-		String header = req.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
+		String cookies = req.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
+		String token = null;
 		
-		if (header != null) {
-			String[] cookiesArr = header.split(";");
+		if (cookies != null) {
+			String[] cookiesArr = cookies.split(";");
 			for (int i = 0; i < cookiesArr.length; i++) {
 				if ("jwt".equals(cookiesArr[i].trim().split("=")[0])) {
-					header = cookiesArr[i].split("=")[1];
+					token = cookiesArr[i].split("=")[1];
 				}
 			}
 		}
-
-		if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+		
+		if (token == null || !token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 			chain.doFilter(req, res);
 			return;
 		}
@@ -57,10 +57,11 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) throws Exception {
 
-		String token = request.getHeader("Cookie"); // SecurityConstants.HEADER_STRING
+		String cookies = request.getHeader("Cookie"); 
+		String token = null;
 		
-		if (token != null) {
-			String[] cookiesArr = token.split(";");
+		if (cookies != null) {
+			String[] cookiesArr = cookies.split(";");
 			for (int i = 0; i < cookiesArr.length; i++) {
 				if ("jwt".equals(cookiesArr[i].trim().split("=")[0])) {
 					token = cookiesArr[i].split("=")[1];

@@ -1,93 +1,98 @@
 <!-- https://www.markuptag.com/login-form-design-html-in-bootstrap-5/ -->
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Sign Up</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="icon" type="image/x-icon" th:href="@{favicon.ico}"/>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
-        <style></style>
-    </head>
-    <body>
-		<div class="container mt-5">
-		    <div class="row">
-		        <div class="col-md-6 offset-md-3">
-		            <div class="mb-3">
-		                <h3>Sign Up</h3>
-		            </div>
-		            <div class="shadow p-4">                  
-		                <div class="mb-3">
-		                    <label for="firstName">First Name</label>
-		                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="lastName">Last Name</label>
-		                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="email">Email</label>
-		                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="nickName">Nickname</label>
-		                    <input type="email" class="form-control" name="nickName" id="nickName" placeholder="Nickname">
-		                </div>
-		                <div class="mb-3">
-		                    <label for="password">Password</label>
-		                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-		                </div>
-		                 <div class="mb-3">
-		                    <label for="password1">Confirm Your Password</label>
-		                    <input type="password" class="form-control" name="password1" id="password1" placeholder="Confirm Your Password">
-		                </div>
-		
-		                <div class="mb-3 float-end">
-		                    <button type="submit" th:onclick="sendRequest()" class="btn btn-primary">Register</button>
-		                </div>
-		
-		                <hr>
-		                
-		            </div>
-		        </div>   
-		    </div>
-		</div>
-		<div id="warn" class="text-center text-danger"></div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+<head>
+	<title>Sign Up</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="icon" type="image/x-icon" th:href="@{favicon.ico}" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+	<style></style>
+</head>
+
+<body>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="mb-3">
+					<h3>Sign Up</h3>
+				</div>
+				<div class="shadow p-4">
+					<div class="mb-3">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control" name="firstName" id="firstName"
+							placeholder="First Name">
+					</div>
+					<div class="mb-3">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+					</div>
+					<div class="mb-3">
+						<label for="email">Email</label>
+						<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+					</div>
+					<div class="mb-3">
+						<label for="nickName">Nickname</label>
+						<input type="email" class="form-control" name="nickName" id="nickName" placeholder="Nickname">
+					</div>
+					<div class="mb-3">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" name="password" id="password"
+							placeholder="Password">
+					</div>
+					<div class="mb-3">
+						<label for="password1">Confirm Your Password</label>
+						<input type="password" class="form-control" name="password1" id="password1"
+							placeholder="Confirm Your Password">
+					</div>
+
+					<div class="mb-3 float-end">
+						<button type="submit" th:onclick="sendRequest()" class="btn btn-primary">Register</button>
+					</div>
+
+					<hr>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="warn" class="text-center text-danger"></div>
+
+	<!-- Bootstrap JS -->
+	<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 </body>
 
 <script th:inline="javascript">
 
-function sendRequest() {
-	
-	var firstName = $("#firstName").val();	
-	var lastName = $("#lastName").val();	
-	var email = $("#email").val();	
-	var nickName = $("#nickName").val();	
-	var password = $("#password").val();	
-	var password1 = $("#password1").val();	
-	var param = {firstName, lastName, email, nickName, password}   
-	
-	if (password !== password1) {
-		$('#warn').text("Passwords are not matched");
-		return;
+	function sendRequest() {
+
+		var firstName = $("#firstName").val();
+		var lastName = $("#lastName").val();
+		var email = $("#email").val();
+		var nickName = $("#nickName").val();
+		var password = $("#password").val();
+		var password1 = $("#password1").val();
+		var param = {firstName, lastName, email, nickName, password}
+
+		if (password !== password1) {
+			$('#warn').text("Passwords are not matched");
+			return;
+		}
+		$.ajax({
+			type: 'POST',
+			data: JSON.stringify(param),
+			url: "/users",
+			contentType: "application/json; charset=UTF-8",
+			dataType: 'json'
+		}).done(function (output, status, xhr) {
+			window.location.href = '/';
+		});
 	}
-	$.ajax({	
-		type:'POST',		
-		data: JSON.stringify(param),		
-		url:"/users",		
-		contentType: "application/json; charset=UTF-8",	
-		dataType:'json'	
-	}).done(function (output, status, xhr) {
-		window.location.href = '/';
-	});
-}
 
 </script>
 

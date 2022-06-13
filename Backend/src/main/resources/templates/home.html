@@ -1,101 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Home</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
 
-        <style>
-            .card-thumbnail {
-        		max-height: 250px;
-        		overflow: hidden;
-    		}
-        </style>
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="item" style="display:none" th:href="@{/item}">Sell Your Items</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="youritem" style="display:none" th:href="@{/seller}">Your Items</a>
-                        </li>
-                    </ul>
-                    <div class="float-end" >
-                    	<button class="btn btn-light ms-3" id="signIn" th:onclick="window.location.href='/signin'">Sign In</button>
-                    	<button class="btn btn-light ms-3" id="signUp" th:onclick="window.location.href='/register'">Sign Up</button>
-                    	<button class="btn btn-light ms-3" id="logout" style="display:none" th:onclick="window.location.href='/logout'">Logout</button>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        
-        <section class="bg-light py-4 my-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="mb-3 text-danger">On sale</h2>
-                </div>
-				
-                <div class="col-md-6 col-lg-4" th:each="item : ${itemsList}">
-                    <div class="card my-3">
-                   <!-- <div class="card-thumbnail">
+<head>
+	<title>Home</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+
+	<style>
+		.card-thumbnail {
+			max-height: 250px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="item" style="display:none" th:href="@{/item/register}">Sell Your
+							Items</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="youritem" style="display:none" th:href="@{/seller}">Your Items</a>
+					</li>
+				</ul>
+				<div class="float-end">
+					<button class="btn btn-light ms-3" id="signIn" style="display:none"
+						th:onclick="window.location.href='/signin'">Sign
+						In</button>
+					<button class="btn btn-light ms-3" id="signUp" style="display:none"
+						th:onclick="window.location.href='/register'">Sign
+						Up</button>
+					<button class="btn btn-light ms-3" id="logout" style="display:none"
+						th:onclick="window.location.href='/logout'">Logout</button>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<section class="bg-light py-4 my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="mb-3 text-danger">On sale</h2>
+				</div>
+
+				<div class="col-md-6 col-lg-4" th:each="item : ${itemsList}">
+					<div class="card my-3">
+						<!-- <div class="card-thumbnail">
                             <img src="#" class="img-fluid" alt="thumbnail">
                         </div>  -->
-                        <div class="card-body">
-                            <h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
-                            <p class="card-text" th:text="|${item.price}원|"></p>
-                           	<p class="card-text" th:text="|${item.stock}개 남음|"></p>
-                			<p class="text-secondary" th:text="${item.description}"></p>
-                			<a th:href="@{/item/{id}(id=${item.seller.userId})}" class="btn btn-sm btn-danger float-right" th:text="|${item.seller.nickName}의 상품 더보기|"></a>
-                        </div> 
-                    </div>
-                </div>
- 
-            </div>
-        </div>
-    </section>
-        <!-- Bootstrap JS -->
-        <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-    </body>
+						<div class="card-body">
+							<h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
+							<p class="card-text" th:text="|${item.price}원|"></p>
+							<p class="card-text" th:text="|${item.stock}개 남음|"></p>
+							<p class="text-secondary" th:text="${item.description}"></p>
+							<a th:href="@{/item(userId=${item.seller.userId}, nickName=${item.seller.nickName})}"
+								class="btn btn-sm btn-danger float-right"
+								th:text="|${item.seller.nickName}의 상품 더보기|"></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- Bootstrap JS -->
+	<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
 <script>
-let cookies = document.cookie;
-let jwt = "";
-let hasJwtExpired = "[[${hasJwtExpired}]]"
-let userId = "[[${userId}]]"
-
-if (hasJwtExpired == 'true' || userId.length == 0) {
-	document.cookie = "jwt" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	jwt = "";
-}
-
-if (cookies != null && hasJwtExpired == 'false') {
-	let cookiesArr = cookies.split(";");
-	for (let i = 0; i < cookiesArr.length; i++) {
-		if ("jwt" == (cookiesArr[i].trim().split("=")[0])) {
-			jwt = cookiesArr[i].split("=")[1];
-		}
-	}
-}
-
-if (jwt.length > 0) {
-	$("#signIn").attr("style", "display: none !important;");
-	$("#signUp").attr("style", "display: none !important;");
-	$("#item").attr("style", "display: block !important;");
-	$("#youritem").attr("style", "display: block !important;");
-	$("#logout").attr("style", "display: block !important;");
-}
-
+	let token = "[[${token}]]";
+	let hasJwtExpired = "[[${hasJwtExpired}]]";
+	let userId = "[[${userId}]]";
 </script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
 </html>
