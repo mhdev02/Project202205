@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.project.backend.common.dto.ItemDto;
+import com.project.backend.io.entity.UserEntity;
+import com.project.backend.io.repository.UserRepository;
 import com.project.backend.security.SecurityConstants;
 import com.project.backend.service.ItemService;
 
@@ -22,11 +24,16 @@ public class HomeController {
 	@Autowired
 	ItemService itemService;
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	@GetMapping("/")
 	public String displayItemAndHome(Model model, HttpServletRequest req) {
 		
 		boolean hasJwtExpired = false;
 		String token = "";
+		String userEmail = "";
+		String userId = "";
 		
 		try {
 			String cookies = req.getHeader("Cookie");
@@ -42,8 +49,14 @@ public class HomeController {
 			if (token.length() > 0) {
 				token = token.replace(SecurityConstants.TOKEN_PREFIX, "");
 
-				Jwts.parser().setSigningKey(SecurityConstants.getJWTSecret()).parseClaimsJws(token).getBody()
+				userEmail = Jwts.parser().setSigningKey(SecurityConstants.getJWTSecret()).parseClaimsJws(token).getBody()
 					.getSubject();
+				
+				UserEntity userEntity =userRepository.findByEmail(userEmail);
+				if (userEntity != null) {
+					userId = userEntity.getUserId();
+				}
+				
 			}
 
 		} catch (ExpiredJwtException e) {
@@ -53,6 +66,7 @@ public class HomeController {
 		List<ItemDto> items = itemService.getAll();
 		model.addAttribute("itemsList", items);
 		model.addAttribute("hasJwtExpired", hasJwtExpired);
+		model.addAttribute("userId", userId);
 		
 		return "home";
 		
