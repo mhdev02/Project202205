@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.project.backend.common.dto.ItemDto;
+import com.project.backend.common.dto.UserDto;
 
 public interface ItemService {
 	
@@ -16,5 +17,9 @@ public interface ItemService {
 	List<ItemDto> getItems(String userId);
 
 	ItemDto getItem(String itemId);
+	
+	ItemDto updateItem(String itemId, ItemDto item);
+	
+	void deleteItem(String itemId);
 
 }
