@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -44,7 +46,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.deleteCookies("jwt", "userId");
 
 		http.headers().frameOptions().disable(); // h2-console
-
+		
+	}
+	
+	// https://www.baeldung.com/spring-security-request-rejected-exception
+	@Bean
+	public HttpFirewall getHttpFirewall() {
+	    StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
+	    strictHttpFirewall.setAllowSemicolon(true);
+	    return strictHttpFirewall;
 	}
 
 	@Override

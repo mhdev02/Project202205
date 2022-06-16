@@ -14,5 +14,10 @@ public class SecurityConstants {
 		AppProperties appProperties = (AppProperties) AppContext.getBean("AppProperties");
 		return appProperties.getJWTSecret();
 	}
+	
+	public static String getFilePath() {
+		AppProperties appProperties = (AppProperties) AppContext.getBean("AppProperties");
+		return appProperties.getFilePath();
+	}
 
 }

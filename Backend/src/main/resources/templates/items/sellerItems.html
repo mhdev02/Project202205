@@ -20,33 +20,7 @@
 </head>
 
 <body>
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<div class="container">
-				<ul class="navbar-nav mx-auto">
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/}">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" id="item" style="display:none" th:href="@{/item/register}">Sell Your
-							Items</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" id="youritem" style="display:none" th:href="@{/seller}">Your
-							Items</a>
-					</li>
-				</ul>
-				<div class="float-end">
-					<button class="btn btn-light ms-3" id="signIn" style="display:none"
-						th:onclick="window.location.href='/signin'">Sign In</button>
-					<button class="btn btn-light ms-3" id="signUp" style="display:none"
-						th:onclick="window.location.href='/register'">Sign Up</button>
-					<button class="btn btn-light ms-3" id="logout" style="display:none"
-						th:onclick="window.location.href='/logout'">Logout</button>
-				</div>
-			</div>
-		</nav>
-	</header>
+	<header th:replace="layout :: header"></header>
 
 	<section class="bg-light py-4 my-5">
 		<div class="container">
@@ -57,9 +31,11 @@
 
 				<div class="col-md-6 col-lg-4" th:each="item : ${itemsList}">
 					<div class="card my-3">
-						<!-- <div class="card-thumbnail">
-                            <img src="#" class="img-fluid" alt="thumbnail">
-                        </div>  -->
+						<div class="card-thumbnail">
+							<img th:if="${not #strings.isEmpty(item?.image?.mimeType)}"
+								th:src="|data:${item?.image?.mimeType};base64, ${item?.image?.data}|" class="img-fluid"
+								alt="thumbnail">
+						</div>
 						<div class="card-body">
 							<h3 class="card-title"><a href="#" class="text-secondary" th:text="${item.name}"></a></h3>
 							<p class="card-text" th:text="|${item.price}원|"></p>

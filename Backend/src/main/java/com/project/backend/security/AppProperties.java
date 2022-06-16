@@ -13,4 +13,8 @@ public class AppProperties {
 	public String getJWTSecret() {
 		return env.getProperty("JWTSecret");
 	}
+	
+	public String getFilePath() {
+		return env.getProperty("filePath");
+	}
 }

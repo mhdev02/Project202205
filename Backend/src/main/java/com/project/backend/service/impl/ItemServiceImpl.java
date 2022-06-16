@@ -3,12 +3,12 @@ package com.project.backend.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
@@ -33,21 +33,9 @@ public class ItemServiceImpl implements ItemService {
 	Utils utils;
 	
 	@Override
-	public boolean createItem(ItemDto item, @RequestHeader HttpHeaders headers) {
+	public ItemDto createItem(ItemDto item, HttpServletRequest req) {
 		
-		String userId = "";
-		
-		try {
-			String cookies = headers.getFirst("Cookie");
-			String[] cookiesArr = cookies.split(";");
-			for (int i = 0; i < cookiesArr.length; i++) {
-				if ("userId".equals(cookiesArr[i].trim().split("=")[0])) {
-					userId = cookiesArr[i].split("=")[1];
-				}
-			}
-		} catch(Exception e) {
-			System.out.println(e);
-		}
+		String userId = utils.bringUserIdAndHasJwtExpired(req).get("userId");
 
 		UserEntity user = userRepository.findByUserId(userId);
 
@@ -68,7 +56,9 @@ public class ItemServiceImpl implements ItemService {
 		
 		userRepository.save(user);
 
-		return true;
+		ItemDto returnValue = new ModelMapper().map(savedItemEntity, ItemDto.class);
+		
+		return returnValue;
 	}
 	
 	@Override
@@ -126,7 +116,7 @@ public class ItemServiceImpl implements ItemService {
 
 		if (itemEntity == null)
 			throw new ItemServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
+		
 		itemEntity.setName(item.getName());
 		itemEntity.setPrice(item.getPrice());
 		itemEntity.setStock(item.getStock());

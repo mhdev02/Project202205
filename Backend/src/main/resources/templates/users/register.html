@@ -71,13 +71,13 @@
 
 	function sendRequest() {
 
-		var firstName = $("#firstName").val();
-		var lastName = $("#lastName").val();
-		var email = $("#email").val();
-		var nickName = $("#nickName").val();
-		var password = $("#password").val();
-		var password1 = $("#password1").val();
-		var param = {firstName, lastName, email, nickName, password}
+		let firstName = $("#firstName").val();
+		let lastName = $("#lastName").val();
+		let email = $("#email").val();
+		let nickName = $("#nickName").val();
+		let password = $("#password").val();
+		let password1 = $("#password1").val();
+		let param = {firstName, lastName, email, nickName, password}
 
 		if (password !== password1) {
 			$('#warn').text("Passwords are not matched");

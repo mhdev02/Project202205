@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -43,6 +44,10 @@ public class ItemEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "users_id")
 	private UserEntity seller;
+	
+	@OneToOne 
+	@JoinColumn(name = "images_id")
+	private ImageEntity image;
 
 	public long getId() {
 		return id;
@@ -98,6 +103,14 @@ public class ItemEntity implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public ImageEntity getImage() {
+		return image;
+	}
+
+	public void setImage(ImageEntity image) {
+		this.image = image;
 	}
 
 }
