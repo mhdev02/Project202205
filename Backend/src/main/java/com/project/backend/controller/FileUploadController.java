@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.backend.common.Utils;
 import com.project.backend.security.SecurityConstants;
 
+// This controller is for local test
 @Controller
 public class FileUploadController {
 	
@@ -43,7 +44,6 @@ public class FileUploadController {
             RedirectAttributes redirectAttributes) throws IOException {
 
         String uuid = UUID.randomUUID().toString();
-        // file upload to system
         File convertedFile = new File(SecurityConstants.getFilePath(), uuid + file.getOriginalFilename());
         file.transferTo(convertedFile);
 
