@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.backend.api.model.response.ImageRest;
 import com.project.backend.api.model.response.RequestStatus;
 import com.project.backend.api.model.response.StatusModel;
+import com.project.backend.common.ImageUtils;
 import com.project.backend.common.dto.ImageDto;
 import com.project.backend.service.ImageService;
 import com.project.backend.service.ItemService;
@@ -32,17 +33,22 @@ public class ImageController {
 
 	@Autowired
 	ItemService itemService;
+	
+	@Autowired
+	ImageUtils imageUtils;
 
 	@PostMapping(path = "/{itemId}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ImageRest createItem(@RequestParam MultipartFile file, @PathVariable String itemId) throws Exception {
+	public ImageRest createImage(@RequestParam MultipartFile file, @PathVariable String itemId) throws Exception {
 		
 //		Base64.Encoder encoder = Base64.getEncoder();
 //        byte[] fileEncoded = encoder.encode(file.getBytes());
 //        String encodedImage = new String(fileEncoded, "UTF8");
 		
 		ModelMapper modelMapper = new ModelMapper();
+
+		byte[] resizedImagebytes = imageUtils.imageResize(file);
         
-        String encodedImage = Base64.encodeBase64String(file.getBytes());
+        String encodedImage = Base64.encodeBase64String(resizedImagebytes); 
         
 		ImageDto imageDto = new ImageDto();
 		imageDto.setOriginalName(file.getOriginalFilename());
@@ -61,7 +67,9 @@ public class ImageController {
 		
 		ModelMapper modelMapper = new ModelMapper();
 		
-		String encodedImage = Base64.encodeBase64String(file.getBytes());
+		byte[] resizedImagebytes = imageUtils.imageResize(file);
+		
+		String encodedImage = Base64.encodeBase64String(resizedImagebytes);
         
 		ImageDto imageDto = new ImageDto();
 		

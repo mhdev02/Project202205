@@ -23,7 +23,7 @@ public class ItemEntity implements Serializable {
 	private long id;
 
 	@NotBlank
-	@Column(length = 30)
+	@Column()
 	private String itemId;
 	
 	@NotBlank
