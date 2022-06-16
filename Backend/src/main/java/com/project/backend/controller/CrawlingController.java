@@ -17,7 +17,7 @@ public class CrawlingController {
 	
 		model.addAttribute("SERVER_IP", env.getProperty("SERVER_IP"));
 		
-		return "crawling";
+		return "crawler/crawling";
 	}
 
 }
