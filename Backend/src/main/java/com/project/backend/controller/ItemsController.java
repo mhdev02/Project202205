@@ -38,7 +38,7 @@ public class ItemsController {
 		model.addAttribute("userId", resultMap.get("userId"));
 		model.addAttribute("token", resultMap.get("token"));
 		
-		return "registerItem";
+		return "items/registerItem";
 	}
 	
 	@GetMapping("/item/update")
@@ -47,11 +47,17 @@ public class ItemsController {
 		Map<String, String> resultMap = utils.bringUserIdAndHasJwtExpired(req);
 		ItemDto item = itemService.getItem(itemId);
 		
+		try {
+			item.getImage().getImageId(); 
+			model.addAttribute("imageId", item.getImage().getImageId());
+		} catch(NullPointerException e) {
+			model.addAttribute("imageId", "");
+		}
 		model.addAttribute("item", item);
 		model.addAttribute("hasJwtExpired", resultMap.get("hasJwtExpired"));
 		model.addAttribute("userId", resultMap.get("userId"));
 		model.addAttribute("token", resultMap.get("token"));
-		return "updateItem";
+		return "items/updateItem";
 	}
 	
 	@GetMapping("/item")
@@ -65,7 +71,7 @@ public class ItemsController {
 		model.addAttribute("hasJwtExpired", resultMap.get("hasJwtExpired"));
 		model.addAttribute("userId", resultMap.get("userId"));
 		model.addAttribute("token", resultMap.get("token"));
-		return "moreItems";
+		return "items/moreItems";
 	}
 	
 	@GetMapping("/seller")
@@ -79,7 +85,7 @@ public class ItemsController {
 		model.addAttribute("userId", resultMap.get("userId"));
 		model.addAttribute("token", resultMap.get("token"));
 
-		return "sellerItems";
+		return "items/sellerItems";
 	}
 	
 }
