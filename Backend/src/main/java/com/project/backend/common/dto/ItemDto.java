@@ -9,6 +9,7 @@ public class ItemDto {
 	private String stock;
 	private String description;
 	private UserDto seller;
+	private ImageDto image;
 
 	public long getId() {
 		return id;
@@ -64,5 +65,13 @@ public class ItemDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public ImageDto getImage() {
+		return image;
+	}
+
+	public void setImage(ImageDto image) {
+		this.image = image;
 	}
 }
