@@ -4,10 +4,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,12 +51,13 @@ public class ItemController {
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public boolean createItem(@RequestBody ItemRequestModel item, @RequestHeader HttpHeaders headers) throws Exception {
+	public ItemRest createItem(@RequestBody ItemRequestModel item, HttpServletRequest req) throws Exception {
 		
 		ModelMapper modelMapper = new ModelMapper();
 		ItemDto itemDto = modelMapper.map(item, ItemDto.class);
 
-		boolean returnValue = itemService.createItem(itemDto, headers);
+		ItemDto savedItem = itemService.createItem(itemDto, req);
+		ItemRest returnValue = modelMapper.map(savedItem, ItemRest.class);
 
 		return returnValue;
 	}
@@ -69,8 +70,8 @@ public class ItemController {
 
 		ItemDto itemDto = modelMapper.map(itemInfo, ItemDto.class);
 
-		ItemDto updateItem = itemService.updateItem(id, itemDto);
-		ItemRest returnValue = modelMapper.map(updateItem, ItemRest.class);
+		ItemDto updatedItem = itemService.updateItem(id, itemDto);
+		ItemRest returnValue = modelMapper.map(updatedItem, ItemRest.class);
 
 		return returnValue;
 	}
