@@ -34,18 +34,18 @@ public class HomeController {
 		model.addAttribute("userId", resultMap.get("userId"));
 		model.addAttribute("token", resultMap.get("token"));
 		
-		return "home";
+		return "main/home";
 		
 	}
 	
 	@GetMapping("/register")
 	public String signUp() {
-		return "register";
+		return "users/register";
 	}
 	
 	@GetMapping("/signin")
 	public String signIn() {
-		return "signin";
+		return "users/signin";
 	}
 	
 }
