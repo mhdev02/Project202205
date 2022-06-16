@@ -17,6 +17,8 @@
 
 <img width="892" alt="Screen Shot 2022-05-20 at 9 50 20 AM" src="https://user-images.githubusercontent.com/62423408/169427002-b09e9a04-8677-4d43-9446-5fb599772ec3.png">
 
+<img width="892" alt="Screen Shot 2022-06-16 at 12 21 05 PM" src="https://user-images.githubusercontent.com/62423408/173984157-d1ce217f-188f-41e5-9ae7-52a0cad63557.png">
+
 
 ## 브랜치 관리 전략  
 
@@ -217,3 +219,10 @@
     로그인하면 발행되는 JWT와 UserID를 Response Header에서 가져와서 쿠키에 저장하기로 하고 관련 로직을 html 페이지에 
     적용하고 요청마다 Request Header에서 "Cookie"라는 키값으로부터 관련 데이터를 가져오도록 하는 것을 
     AuthorizationFilter.java 등에 적용
+
+
+    이미지 업로드를 할 때 해당 이미지가 뜨지 않는다면 https://convertio.co/kr/와 같은 곳에서 png, jpg로 변환 후
+    업로드 하면 이미지가 뜬다는 것을 확인했고, laptop의 크롬 브라우저 및 아이폰의 크롬 브라우저에서 이미지 업로드 작동 확인
+
+        이미지를 업로드 받아 MySql에 Base64 인코딩 후 String 형식으로 저장하고 불러오는 구조로 개발했지만,
+        이미지를 AWS S3에 저장하고 해당 url을 데이터베이스에 저장하고 불러오는 방법 등이 있다고 함
