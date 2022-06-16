@@ -17,7 +17,7 @@
 
 <img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/169427002-b09e9a04-8677-4d43-9446-5fb599772ec3.png">
 
-<img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/173986976-89037d8e-3657-4c06-be8c-d0cc72c55c49.png">
+<img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/173987836-8f5e3638-5bac-4ae5-82ec-678d78e189ec.png">
 
 
 ## 브랜치 관리 전략  
@@ -226,3 +226,5 @@
 
         이미지를 업로드 받아 MySql에 Base64 인코딩 후 String 형식으로 저장하고 불러오는 구조로 개발했지만,
         이미지를 AWS S3에 저장하고 해당 url을 데이터베이스에 저장하고 불러오는 방법 등이 있다고 함
+
+        1:N이 보편적이지만 item과 image이 1:1 관계로 설정함
