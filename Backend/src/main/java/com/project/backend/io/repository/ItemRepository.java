@@ -16,4 +16,6 @@ public interface ItemRepository extends CrudRepository<ItemEntity, Long> {
 	List<ItemEntity> findAllBySeller(UserEntity userEntity);
 
 	ItemEntity findByItemId(String itemId);
+	
+	void deleteByItemId(String itemId);
 }
