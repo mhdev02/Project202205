@@ -16,34 +16,7 @@
 </head>
 
 <body>
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<div class="container">
-				<ul class="navbar-nav mx-auto">
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/}">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" id="item" style="display:none" th:href="@{/item/register}">Sell Your
-							Items</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" id="youritem" style="display:none" th:href="@{/seller}">Your Items</a>
-					</li>
-				</ul>
-				<div class="float-end">
-					<button class="btn btn-light ms-3" id="signIn" style="display:none"
-						th:onclick="window.location.href='/signin'">Sign
-						In</button>
-					<button class="btn btn-light ms-3" id="signUp" style="display:none"
-						th:onclick="window.location.href='/register'">Sign
-						Up</button>
-					<button class="btn btn-light ms-3" id="logout" style="display:none"
-						th:onclick="window.location.href='/logout'">Logout</button>
-				</div>
-			</div>
-		</nav>
-	</header>
+	<header th:replace="layout :: header"></header>
 
 	<div class="container mt-5">
 		<div class="row">
@@ -71,9 +44,13 @@
 						<input type="text" class="form-control" name="description" id="description"
 							placeholder="Description">
 					</div>
+					<div class="mb-3">
+						<label for="file">Image Upload(below 10MB)</label>
+						<input type="file" class="form-control" name="file" id="file">
+					</div>
 
 					<div class="mb-3 float-end">
-						<button type="submit" th:onclick="sendReq()" class="btn btn-primary">Register</button>
+						<button type="submit" th:onclick="sendReq('POST', '', '/')" class="btn btn-primary">Register</button>
 					</div>
 
 					<hr>
@@ -94,36 +71,5 @@
 	let userId = "[[${userId}]]";
 </script>
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
-<script>
-
-	function sendReq() {
-
-		var name = $("#name").val();
-		var price = $("#price").val();
-		var quantity = $("#quantity").val();
-		var description = $("#description").val();
-		var param = {name, price, "stock": quantity, description}
-
-		if (isNaN(parseInt(price))) {
-			$('#warn').text("Price should be number");
-			return;
-		}
-		if (isNaN(parseInt(quantity))) {
-			$('#warn').text("Quantity should be number");
-			return;
-		}
-
-		$.ajax({
-			type: 'POST',
-			data: JSON.stringify(param),
-			url: "/items",
-			contentType: "application/json",
-		}).done(function (output, status, xhr) {
-			window.location.href = '/';
-
-		})
-	}
-
-</script>
 
 </html>
