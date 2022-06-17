@@ -96,8 +96,9 @@ public class ImageServiceImpl implements ImageService {
 			throw new ImageServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 		
 		ItemEntity item = itemRepository.findByItemId(imageEntity.getItem().getItemId());
-
-		itemRepository.delete(item);
+		
+		item.setImage(null);
+		itemRepository.save(item);
 		imageRepository.delete(imageEntity);
 
 	}
