@@ -19,12 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageUtils {
 
-	private static final int ABSOLUTE_WIDTH = 415;
-	private static final int ABSOLUTE_HEIGHT = 255;
+	int ABSOLUTE_WIDTH = 415;
+	int ABSOLUTE_HEIGHT = 0;
 
 	public byte[] imageResize(MultipartFile srcFile) throws IOException {
 
 		BufferedImage originalImage = ImageIO.read(srcFile.getInputStream());
+		int originalWidth = originalImage.getWidth();
+		int originalHeight = originalImage.getHeight();
+		double ratio = ((double) originalHeight) / originalWidth;
+		ABSOLUTE_HEIGHT = (int)Math.round(ABSOLUTE_WIDTH * ratio);
+		
 		int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
 		BufferedImage resizeImage = resizeImageWithHint(originalImage, type);
 
