@@ -42,9 +42,11 @@
 							<p class="card-text" th:text="|${item.stock}개 남음|"></p>
 							<p class="text-secondary" th:text="${item.description}"></p>
 							<a th:href="@{/item/update(itemId=${item.itemId})}"
-								class="btn btn-sm btn-danger float-right" th:text="|상품 수정하기|"></a>
-							<a th:attr="onclick=|deleteReq('${item.itemId}', '${item.seller.userId}')|"
-								class="btn btn-sm btn-danger float-right" th:text="|상품 삭제하기|"></a>
+								class="btn btn-sm btn-danger float-right" th:text="|수정|"></a>
+							<a th:attr="onclick=|deleteReq('items', '${item.itemId}')|"
+								class="btn btn-sm btn-danger float-right" th:text="|삭제|"></a>
+							<a th:if="${not #strings.isEmpty(item?.image?.imageId)}" th:attr="onclick=|deleteReq('images', '${item.image.imageId}')|"
+								class="btn btn-sm btn-danger float-right" th:text="|이미지 삭제|"></a>
 						</div>
 					</div>
 				</div>
@@ -65,11 +67,11 @@
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
 <script>
 
-	function deleteReq(itemId, userId) {
+	function deleteReq(path, id) {
 
 		$.ajax({
 			type: 'DELETE',
-			url: `/items/${itemId}`,
+			url: `/${path}/${id}`,
 		}).done(function (output, status, xhr) {
 			window.location.href = `/seller`;
 		});
