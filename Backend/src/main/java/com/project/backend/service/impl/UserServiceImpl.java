@@ -15,7 +15,11 @@ import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
 import com.project.backend.common.dto.UserDto;
 import com.project.backend.exceptions.UserServiceException;
+import com.project.backend.io.entity.ImageEntity;
+import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
+import com.project.backend.io.repository.ImageRepository;
+import com.project.backend.io.repository.ItemRepository;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.UserService;
 
@@ -24,6 +28,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	ItemRepository itemRepository;
+
+	@Autowired
+	ImageRepository imageRepository;
 
 	@Autowired
 	Utils utils;
@@ -59,8 +69,7 @@ public class UserServiceImpl implements UserService {
 		if (userEntity == null)
 			throw new UsernameNotFoundException(email);
 
-		return new User(userEntity.getEmail(), userEntity.getPassword(), true, true, true, true,
-				new ArrayList<>());
+		return new User(userEntity.getEmail(), userEntity.getPassword(), true, true, true, true, new ArrayList<>());
 	}
 
 	@Override
@@ -116,6 +125,16 @@ public class UserServiceImpl implements UserService {
 
 		if (userEntity == null)
 			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+		if (userEntity.getItems().size() > 0) {
+			for (ItemEntity item : userEntity.getItems()) {
+				if (item.getImage() != null) {
+					ImageEntity image = imageRepository.findByImageId(item.getImage().getImageId());
+					imageRepository.delete(image);
+				}
+				itemRepository.delete(item);
+			}
+		}
 
 		userRepository.delete(userEntity);
 
