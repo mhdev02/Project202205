@@ -14,8 +14,10 @@ import com.project.backend.api.model.response.ErrorMessages;
 import com.project.backend.common.Utils;
 import com.project.backend.common.dto.ItemDto;
 import com.project.backend.exceptions.ItemServiceException;
+import com.project.backend.io.entity.ImageEntity;
 import com.project.backend.io.entity.ItemEntity;
 import com.project.backend.io.entity.UserEntity;
+import com.project.backend.io.repository.ImageRepository;
 import com.project.backend.io.repository.ItemRepository;
 import com.project.backend.io.repository.UserRepository;
 import com.project.backend.service.ItemService;
@@ -28,6 +30,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Autowired
+	ImageRepository imageRepository;
 	
 	@Autowired
 	Utils utils;
@@ -140,6 +145,12 @@ public class ItemServiceImpl implements ItemService {
 			throw new ItemServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 		
 		UserEntity user = userRepository.findByUserId(itemEntity.getSeller().getUserId());
+		
+		if (itemEntity.getImage() != null) {
+			ImageEntity image = imageRepository.findByImageId(itemEntity.getImage().getImageId());
+			imageRepository.delete(image);
+		}
+		
 
 		// https://stackoverflow.com/questions/22688402/delete-not-working-with-jparepository
 		user.getItems().remove(itemEntity);
