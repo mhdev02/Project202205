@@ -1,15 +1,16 @@
 // https://blog.taeseong.me/329
 // https://abbo.tistory.com/122
 // https://stackoverflow.com/questions/49665735/spring-mvc-image-uploading-and-imageio-conversion-fails-on-linux
+// https://github.com/namkyu/my_project_modules/blob/master/src/com/kyu/image/core/ImageResizer.java
 package com.project.backend.common;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +23,7 @@ public class ImageUtils {
 	int ABSOLUTE_WIDTH = 415;
 	int ABSOLUTE_HEIGHT = 0;
 
-	public byte[] imageResize(MultipartFile srcFile) throws IOException {
+	public byte[] imageResize(MultipartFile srcFile) throws Exception {
 
 		BufferedImage originalImage = ImageIO.read(srcFile.getInputStream());
 		int originalWidth = originalImage.getWidth();
@@ -31,7 +32,8 @@ public class ImageUtils {
 		ABSOLUTE_HEIGHT = (int)Math.round(ABSOLUTE_WIDTH * ratio);
 		
 		int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-		BufferedImage resizeImage = resizeImageWithHint(originalImage, type);
+//		BufferedImage resizeImage = resizeImageWithHint(originalImage, type);
+		BufferedImage resizeImage = resizeImageHighQuality(originalImage, type);
 
 		final ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
 
@@ -42,6 +44,7 @@ public class ImageUtils {
 		return resultBytes;
 	}
 
+	// lower quality on conversion
 	private BufferedImage resizeImageWithHint(BufferedImage originalImage, int type) {
 
 		BufferedImage resizedImage = new BufferedImage(ABSOLUTE_WIDTH, ABSOLUTE_HEIGHT, type);
@@ -56,11 +59,18 @@ public class ImageUtils {
 
 		return resizedImage;
 	}
+	
+	// improved method
+	private BufferedImage resizeImageHighQuality(BufferedImage originalImage, int type) throws Exception {
+		Image image = originalImage.getScaledInstance(ABSOLUTE_WIDTH, ABSOLUTE_HEIGHT, Image.SCALE_SMOOTH);
+	    int pixels[] = new int[ABSOLUTE_WIDTH * ABSOLUTE_HEIGHT];
+	    PixelGrabber pixelGrabber = new PixelGrabber(image, 0, 0, ABSOLUTE_WIDTH, ABSOLUTE_HEIGHT, pixels, 0, ABSOLUTE_WIDTH);
+	    pixelGrabber.grabPixels();
 
-	public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-		File convFile = new File(multipart.getOriginalFilename());
-		multipart.transferTo(convFile);
-		return convFile;
+        BufferedImage destImg = new BufferedImage(ABSOLUTE_WIDTH, ABSOLUTE_HEIGHT, type);
+        destImg.setRGB(0, 0, ABSOLUTE_WIDTH, ABSOLUTE_HEIGHT, pixels, 0, ABSOLUTE_WIDTH);
+
+		return destImg;
 	}
 
 }
