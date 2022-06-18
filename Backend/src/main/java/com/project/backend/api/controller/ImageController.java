@@ -1,6 +1,5 @@
 package com.project.backend.api.controller;
 
-import java.io.IOException;
 //import java.util.Base64;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -63,7 +62,7 @@ public class ImageController {
 	
 	@PutMapping(path = "/{imageId}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ImageRest updateImage(@RequestParam MultipartFile file, @PathVariable String imageId) throws IOException {
+	public ImageRest updateImage(@RequestParam MultipartFile file, @PathVariable String imageId) throws Exception {
 		
 		ModelMapper modelMapper = new ModelMapper();
 		
