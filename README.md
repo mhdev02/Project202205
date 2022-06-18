@@ -46,7 +46,40 @@
 
 ## 주요 기능 및 특징
 
-    DevOps
+### Root 페이지
+
+<img width="892" alt="1" src="https://user-images.githubusercontent.com/62423408/174435172-0a26d856-8182-49dd-8570-7dd319f3a49b.png">
+
+### 회원가입 페이지 
+
+<img width="892" alt="2" src="https://user-images.githubusercontent.com/62423408/174435168-f0e5c127-cad8-49fa-98ff-3643031fac28.png">
+
+### 로그인 페이지 
+
+<img width="892" alt="3" src="https://user-images.githubusercontent.com/62423408/174435170-31a3ddda-3b7b-4c05-9006-31331fe204f0.png">
+
+### 로그인 후 Root 페이지 
+
+<img width="892" alt="4" src="https://user-images.githubusercontent.com/62423408/174435162-d670bab6-2643-4607-8f62-0736a628c16d.png">
+
+### 상품 등록 페이지 
+
+<img width="892" alt="5" src="https://user-images.githubusercontent.com/62423408/174435163-6a61cebd-0c28-4e20-8aef-15f7f85cffc9.png">
+
+### 상품 등록 후 Root 페이지 
+
+<img width="892" alt="6" src="https://user-images.githubusercontent.com/62423408/174435165-763a35da-5621-428a-b84a-5af77436bb22.png">
+
+### 상품 수정/삭제 페이지 
+
+<img width="892" alt="7" src="https://user-images.githubusercontent.com/62423408/174435158-7075d926-2443-4e30-b864-b04ee196a730.png">
+
+### ScriptCrawler 페이지 
+
+<img width="892" alt="8" src="https://user-images.githubusercontent.com/62423408/174435226-75358d9b-5f67-4ce1-a3a9-6cd4db3523f1.png">
+
+
+    DevOps(Jenkins, AWS, Terraform)
 
         - Terraform으로 AWS EC2(t2.micro) 두 개를 운영(Elastic IP를 쓰지 않아 재부팅마다 public IP가 변경되므로 
           프로젝트 동안은 종료시키지 않음)
@@ -75,36 +108,14 @@
                 DBPassword 
             
 
-    Backend(Spring Framework)
+    Backend(Spring Boot, Thymeleaf)
 
         - 일반적인 프로그램 구현을 목적으로 함
         - 회원 가입 기능
-
-            POST /users  Content-Type: application/json
-            {
-                "firstName": "",
-                "lastName": "",
-                "email": "@",
-                "password": "",
-                "nickName": ""
-            }
-
         - 로그인 시 JWT가 발행되도록 구현
-
-            POST /users/login  Content-Type: application/json
-            {
-                "email": "@",
-                "password": ""
-            }
-
-        - 로그인한 상태에서 판매할 물품을 업로드하는 기능 
-            POST /items  Content-Type: application/json
-            {
-                "name": "",
-                "price": "",
-                "stock": "",
-                "description": ""
-            }
+        - 로그인한 상태에서 판매할 물품을 업로드하는 기능(사진 업로드 기능 추가)
+        - 로그인한 상태에서 물품 수정, 삭제 기능
+        - 특정 판매자의 판매 물품만 모아서 보는 기능 
         
 
     ScriptCrawler(Node.js, Redis)
