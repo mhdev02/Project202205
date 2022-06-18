@@ -17,7 +17,7 @@
 
 <img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/169427002-b09e9a04-8677-4d43-9446-5fb599772ec3.png">
 
-<img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/173987836-8f5e3638-5bac-4ae5-82ec-678d78e189ec.png">
+<img width="892" alt="" src="https://user-images.githubusercontent.com/62423408/174421608-8a1f7639-eed5-4325-82b8-04cbd8acaaf2.png">
 
 
 ## 브랜치 관리 전략  
